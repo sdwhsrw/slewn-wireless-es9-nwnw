@@ -1,6 +1,6 @@
 Slewn Air V20 · 22 HP · 直角双板 · 首件制板与装配
 
-每个板名目录中都有独立 KiCad 10 工程、中文 BOM、首件贴片坐标与 Gerber 压缩包。制作裸板时，MAIN、UI 两个 Gerber 包分别上传。需要改动时用 KiCad 10.0.8 打开对应 .kicad_pro 并从修订后的工程重新导出。报价按两个项目分别核对。
+hw/main 和 hw/ui 中各有独立 KiCad 10 工程；中文 BOM、首件贴片坐标与 Gerber 从工程导出（发布版见 GitHub 板厂包）。制作裸板时，MAIN、UI 两个 Gerber 包分别上传。需要改动时用 KiCad 10.0.8 打开对应 .kicad_pro 并从修订后的工程重新导出。报价按两个项目分别核对。
 
 MAIN 和 UI 均为双层 FR-4、1.60 mm、两面成品铜各 35 μm、ENIG 沉金。MAIN 外轮廓 107.70 × 54.50 mm，UI 为 84.20 × 21.00 mm，尺寸取铣边中心线。板内开槽和安装孔均见 CAM。UI 编码器的 2 个金属化槽孔为 2.00 × 2.80 mm。
 MAIN 的 15 个指定过孔采用 IPC-4761 Type VII 树脂填孔、磨平及双面镀铜盖孔，包括两颗 eFuse 裸焊盘下各 6 孔。板厂请按 MAIN 的 filling、capping Gerber 及 VIPPO.csv 确认报价。UI 无此工艺要求。

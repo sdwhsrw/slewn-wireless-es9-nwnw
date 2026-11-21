@@ -1,9 +1,20 @@
-.DS_Store
-*.kicad_prl
+# generated
+out/
+*.net.xml.bak
+fp-info-cache
+*-backups/
 *.kicad_pcb-bak
 *.kicad_sch-bak
+\#auto_saved_files#
+_autosave-*
+# KiCad lock and per-user state
 *.lck
-*-backups/
-fp-info-cache
+~*.lck
+*.kicad_prl
+# secrets for agent logins
+.env
+# OS
+.DS_Store
+# Blender / Python
 *.blend1
 __pycache__/

@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slewn V20 Pinbelegung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: reference sheet. Header drawing of J1 beside the full 40-pin table, then J2/J101 and J4 tables, then notes. */
+:root {
+  color-scheme: light;
+  --bg: #f4f6f3;
+  --surface: #ffffff;
+  --ink: #18211d;
+  --muted: #64716a;
+  --faint: #c9d1cc;
+  --line: #d6ddd8;
+  --lcd: #1f68a8;
+  --enc: #b36f05;
+  --pwr: #c03a2b;
+  --p3: #d0731f;
+  --gnd: #3c4842;
+  --i2s: #2f8a5f;
+  --spi: #1f68a8;
+  --i2c: #2a7f8f;
+  --uart: #a8407a;
+  --gpio: #6d5bb0;
+  --nc: #8f9a94;
+  --font-display: "Barlow Semi Condensed", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Barlow", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #121815; --surface: #19211d; --ink: #e4ebe6; --muted: #93a29a; --faint: #34413a; --line: #2c3832;
+    --lcd: #5ba3e6; --enc: #e7a63a; --pwr: #ef6b5b; --p3: #f0a050; --gnd: #a9b6af; --i2s: #4fc08a;
+    --spi: #5ba3e6; --i2c: #4cc0d1; --uart: #e07bb5; --gpio: #a597ec; --nc: #6c7871;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 400 16px/1.55 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 1120px; margin: 0 auto; padding-block: 32px 56px; display: grid; gap: 40px; }
+h1, h2 { font-family: var(--font-display); font-weight: 700; text-wrap: balance; margin: 0; letter-spacing: .01em; }
+h1 { font-size: 2.1rem; line-height: 1.1; }
+h2 { font-size: 1.45rem; line-height: 1.2; }
+p { margin: 0; max-width: 72ch; }
+.lead { color: var(--muted); }
+header, .sec { display: grid; gap: 10px; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 20px; font: .85rem var(--font-mono); color: var(--muted); }
+.meta b { color: var(--ink); font-weight: 600; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .9rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+.split { display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+
+.hdr {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 12px;
+  display: grid; grid-template-columns: minmax(0, 1fr) 24px 24px minmax(0, 1fr); column-gap: 8px; row-gap: 3px;
+  font-family: var(--font-mono); font-size: 12px; align-items: center;
+}
+.hdr .cap { grid-column: 1 / -1; display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; padding-bottom: 6px; }
+.hdr .lbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--c); font-weight: 600; }
+.hdr .lbl.l { text-align: right; }
+.hdr .lbl.off { color: var(--muted); font-weight: 400; }
+.pin {
+  width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 9.5px; font-weight: 600; color: var(--surface); background: var(--c); font-variant-numeric: tabular-nums;
+}
+.pin.off { background: var(--surface); color: var(--muted); border: 1.5px dashed var(--faint); font-weight: 400; }
+
+.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+th, td { text-align: left; padding: 6px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font: 600 .76rem var(--font-display); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); position: sticky; top: 0; background: var(--surface); }
+td.mono { font-family: var(--font-mono); font-size: .86rem; font-variant-numeric: tabular-nums; }
+td.muted { color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+tr.grp td { background: var(--bg); font: 600 .76rem var(--font-display); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-block: 4px; }
+.sig { font-family: var(--font-mono); font-weight: 600; font-size: .88rem; color: var(--c); }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--c); margin-right: 7px; }
+
+.draw { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 14px; display: grid; gap: 8px; }
+.draw .cap { display: flex; justify-content: space-between; color: var(--muted); font: 11px var(--font-mono); }
+.strip { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; column-gap: 10px; row-gap: 3px; align-items: center; font-family: var(--font-mono); font-size: 12.5px; }
+.dual { display: grid; grid-template-columns: minmax(0, 1fr) auto 24px 24px auto minmax(0, 1fr); column-gap: 8px; row-gap: 3px; align-items: center; font-family: var(--font-mono); font-size: 12.5px; }
+.sq { width: 22px; height: 22px; border-radius: 4px; display: grid; place-items: center; font-size: 9.5px; font-weight: 600; color: var(--surface); background: var(--c); font-variant-numeric: tabular-nums; }
+.dsig { color: var(--c); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.src { color: var(--muted); font-size: 11px; white-space: nowrap; }
+.dual .r { text-align: right; }
+.notes ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; max-width: 80ch; }
+code { font-family: var(--font-mono); font-size: .88em; }
+a { color: var(--lcd); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Slewn V20 Pinbelegung</h1>
+    <p class="lead">Radxa ZERO 3W auf J1 der MAIN-Platine, die Verbindung zur UI-Platine (J2 = J101) und der Erweiterungsstecker J4. Stand der Schaltpläne vom 21.11.2026.</p>
+    <div class="meta">
+      <span>Quelle <b>hw/main/Slewn_V20_MAIN.kicad_sch</b>, <b>hw/ui/Slewn_V20_UI.kicad_sch</b></span>
+      <span>PCB <b>noch nicht synchronisiert</b></span>
+    </div>
+  </header>
+
+  <div class="legend">
+    <span><i style="background:var(--lcd)"></i>Display / SPI3</span>
+    <span><i style="background:var(--enc)"></i>Encoder</span>
+    <span><i style="background:var(--i2s)"></i>I2S3_M0</span>
+    <span><i style="background:var(--i2c)"></i>I2C5 / I2C4</span>
+    <span><i style="background:var(--gpio)"></i>GPIO / PWM</span>
+    <span><i style="background:var(--pwr)"></i>5V</span>
+    <span><i style="background:var(--p3)"></i>3V3</span>
+    <span><i style="background:var(--gnd)"></i>GND</span>
+    <span><i style="background:var(--uart)"></i>UART2 (Debug) / UART3</span>
+    <span><i style="background:var(--nc)"></i>unbeschaltet</span>
+  </div>
+
+  <section class="sec">
+    <h2>J1 · Radxa ZERO 3W, 40-Pin-Header</h2>
+    <p class="lead">Pin 1 oben links, ungerade Pins links. „Linux“ ist die GPIO-Nummer für Device Tree und <code>gpiod</code>.</p>
+    <div class="split">
+      <div class="hdr" id="hdr" aria-label="J1 Header-Zeichnung"></div>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Pin</th><th>Radxa</th><th>Linux</th><th>Funktion</th><th>Netz</th><th>Geht an</th></tr></thead>
+        <tbody id="j1"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>J2 (MAIN) = J101 (UI)</h2>
+    <p class="lead">1×14, steckt 1:1. Pins 1–8 in der Reihenfolge des Displays J102, Pins 9–14 der Encoder.</p>
+    <div class="split">
+      <div class="draw" aria-label="J2 Zeichnung"><div class="cap"><span>J2 · 1×14</span><span>Pin 1 oben</span></div><div class="strip" id="j2-draw"></div></div>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Pin</th><th>Netz</th><th>J1</th><th>Auf der UI-Platine</th></tr></thead>
+        <tbody id="j2"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>J4 · Erweiterung</h2>
+    <p class="lead">2×17 Stiftleiste, 2,54 mm, gerade (HCTL PZ254-2-17-Z-8.5, LCSC C2894978). Versorgung oben, dann I2S, SPI, I2C5/I2C4, UART2/UART3 und GPIO, jeweils durch GND getrennt. Damit liegt jeder Radxa-Pin, den MAIN nicht selbst braucht, auf J4; nur J1·26 (NC) bleibt frei.</p>
+    <div class="split">
+      <div class="draw" aria-label="J4 Zeichnung"><div class="cap"><span>ungerade</span><span>J4 · 2×17 · Pin 1 oben links</span><span>gerade</span></div><div class="dual" id="j4-draw"></div></div>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Pin</th><th>Netz</th><th>J1</th><th>Pin</th><th>Netz</th><th>J1</th></tr></thead>
+        <tbody id="j4"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="sec notes">
+    <h2>Hinweise</h2>
+    <ul>
+      <li>SPI3_M1 ist der einzige SPI-Controller am Header. J4 teilt CLK, MOSI und MISO mit dem Display; das Gerät an J4 nutzt CS1 auf J1·22, im Device Tree als <code>cs-gpios</code>.</li>
+      <li>J1·21 (MISO) ist belegt, solange der SPI3-Treiber läuft, auch wenn nur das Display dranhängt.</li>
+      <li>I2S3_M0 ist das einzige vollständige I2S am Header und liegt komplett mit MCLK auf J4.</li>
+      <li>Strombudget an J4: 5V max. 1 A (vom MAIN-Buck). 3V3 kommt vom Radxa (J1·1 und J1·17) und reicht nur für kleine Lasten.</li>
+      <li>UART2 (J4·25/26) ist die Boot-Konsole mit 1 500 000 Baud. Dort nur ein USB-UART-Kabel anschließen: Verkehr auf RX während des Bootens kann U-Boot anhalten.</li>
+      <li>I2C4 (J4·21/22) hat auf dem Radxa schon Pull-ups. Für I2C5 nennt Radxa keine Pull-ups. Auf MAIN sind dafür R2 (SCL) und R3 (SDA) vorgesehen, 4,7 kΩ 0805 nach 3V3, standardmäßig nicht bestückt (DNP). Nur bestücken, wenn das Modul an J4 keine eigenen Pull-ups hat.</li>
+      <li>Die UART3-Pins (J1·3/5) tragen auf dem Radxa I²C-Pull-ups. Für eine UART ist das unschädlich, da die Leitung im Ruhezustand ohnehin high ist.</li>
+      <li>Unbeschaltet bleibt nur J1·26 (NC).</li>
+      <li>Offen: PCB-Sync von MAIN und UI, Device Tree für LCD_RST, LCD_DC, Backlight-PWM (PWM9_M0), Encoder und CS1.</li>
+      <li>Pin-Tabelle des Radxa: <a href="https://docs.radxa.com/en/zero/zero3/hardware-design/hardware-interface">docs.radxa.com · ZERO 3 Hardware Interface</a>.</li>
+    </ul>
+  </section>
+</main>
+
+<script>
+(() => {
+  // [pin, radxa name, linux gpio, function used, net, group, destination]
+  const J1 = [
+    [1, "+3.3V", "", "3V3-Ausgang", "3V3", "p3", "J2·10, J4·3/4"],
+    [2, "+5.0V", "", "5V-Eingang", "5V", "pwr", "MAIN-Buck, J2·2, J4·1/2"],
+    [3, "GPIO1_A0", 32, "UART3_RX_M0", "UART3_RX", "uart", "J4·28"],
+    [4, "+5.0V", "", "5V-Eingang", "5V", "pwr", "wie Pin 2"],
+    [5, "GPIO1_A1", 33, "UART3_TX_M0", "UART3_TX", "uart", "J4·27"],
+    [6, "GND", "", "", "GND", "gnd", ""],
+    [7, "GPIO3_C4", 116, "GPIO / PWM14_M0", "GPIO3_C4", "gpio", "J4·31"],
+    [8, "GPIO0_D1", 25, "UART2_TX_M0 · Debug", "UART2_TX", "uart", "J4·25"],
+    [9, "GND", "", "", "GND", "gnd", ""],
+    [10, "GPIO0_D0", 24, "UART2_RX_M0 · Debug", "UART2_RX", "uart", "J4·26"],
+    [11, "GPIO3_A1", 97, "GPIO", "GPIO3_A1", "gpio", "J4·32"],
+    [12, "GPIO3_A3", 99, "I2S3_SCLK_M0", "I2S_BCLK", "i2s", "J4·8"],
+    [13, "GPIO3_A2", 98, "I2S3_MCLK_M0", "I2S_MCLK", "i2s", "J4·7"],
+    [14, "GND", "", "", "GND", "gnd", ""],
+    [15, "GPIO3_B0", 104, "GPIO", "LCD_RST", "lcd", "J2·5 → J102·5 RES"],
+    [16, "GPIO3_B1", 105, "GPIO", "LCD_DC", "lcd", "J2·6 → J102·6 DC"],
+    [17, "+3.3V", "", "3V3-Ausgang", "3V3", "p3", "wie Pin 1"],
+    [18, "GPIO3_B2", 106, "PWM9_M0", "LCD_BL", "lcd", "J2·8 → J102·8 BLK"],
+    [19, "GPIO4_C3", 147, "SPI3_MOSI_M1", "SPI_MOSI", "lcd", "J2·4 → J102·4, J4·14"],
+    [20, "GND", "", "", "GND", "gnd", ""],
+    [21, "GPIO4_C5", 149, "SPI3_MISO_M1", "SPI_MISO", "lcd", "J4·15"],
+    [22, "GPIO3_C1", 113, "GPIO als CS1", "SPI_CS1", "lcd", "J4·16"],
+    [23, "GPIO4_C2", 146, "SPI3_CLK_M1", "SPI_CLK", "lcd", "J2·3 → J102·3, J4·13"],
+    [24, "GPIO4_C6", 150, "SPI3_CS0_M1", "LCD_CS", "lcd", "J2·7 → J102·7 CS"],
+    [25, "GND", "", "", "GND", "gnd", ""],
+    [26, "NC", "", "", "", "nc", ""],
+    [27, "GPIO4_B2", 138, "I2C4_SDA_M0", "I2C4_SDA", "i2c", "J4·22"],
+    [28, "GPIO4_B3", 139, "I2C4_SCL_M0", "I2C4_SCL", "i2c", "J4·21"],
+    [29, "GPIO3_B3", 107, "I2C5_SCL_M0", "I2C5_SCL", "i2c", "J4·19"],
+    [30, "GND", "", "", "GND", "gnd", ""],
+    [31, "GPIO3_B4", 108, "I2C5_SDA_M0", "I2C5_SDA", "i2c", "J4·20"],
+    [32, "GPIO3_C2", 114, "GPIO", "ENC_A", "enc", "J2·11 → ENC101 A"],
+    [33, "GPIO3_C3", 115, "GPIO", "ENC_B", "enc", "J2·12 → ENC101 B"],
+    [34, "GND", "", "", "GND", "gnd", ""],
+    [35, "GPIO3_A4", 100, "I2S3_LRCK_M0", "I2S_LRCK", "i2s", "J4·9"],
+    [36, "GPIO3_A7", 103, "GPIO", "ENC_SW", "enc", "J2·13 → ENC101 SW"],
+    [37, "GPIO1_A4", 36, "GPIO", "GPIO1_A4", "gpio", "J4·33"],
+    [38, "GPIO3_A6", 102, "I2S3_SDI_M0", "I2S_DIN", "i2s", "J4·11"],
+    [39, "GND", "", "", "GND", "gnd", ""],
+    [40, "GPIO3_A5", 101, "I2S3_SDO_M0", "I2S_DOUT", "i2s", "J4·10"]
+  ];
+  const J2 = [
+    ["Display J102", [[1, "GND", "", "J102·1 GND"], [2, "5V", "2/4", "R104 → J102·2 VCC"], [3, "SPI_CLK", "23", "J102·3 SCL"],
+      [4, "SPI_MOSI", "19", "J102·4 SDA"], [5, "LCD_RST", "15", "J102·5 RES"], [6, "LCD_DC", "16", "J102·6 DC"],
+      [7, "LCD_CS", "24", "J102·7 CS"], [8, "LCD_BL", "18", "J102·8 BLK, R105 Pull-down"]]],
+    ["Encoder ENC101", [[9, "GND", "", "Masse"], [10, "3V3", "1/17", "Pull-ups R101–R103"], [11, "ENC_A", "32", "ENC101 A"],
+      [12, "ENC_B", "33", "ENC101 B"], [13, "ENC_SW", "36", "ENC101 SW"], [14, "GND", "", "ENC101 C"]]]
+  ];
+  const J4 = ["5V", "5V", "3V3", "3V3", "GND", "GND",
+              "I2S_MCLK", "I2S_BCLK", "I2S_LRCK", "I2S_DOUT", "I2S_DIN", "GND",
+              "SPI_CLK", "SPI_MOSI", "SPI_MISO", "SPI_CS1", "GND", "GND",
+              "I2C5_SCL", "I2C5_SDA", "I2C4_SCL", "I2C4_SDA", "GND", "GND",
+              "UART2_TX", "UART2_RX", "UART3_TX", "UART3_RX", "GND", "GND",
+              "GPIO3_C4", "GPIO3_A1", "GPIO1_A4", "GND"];
+
+  const C = g => `var(--${g})`;
+  const byNet = {};
+  J1.forEach(([pin, , , , net, g]) => { if (net) (byNet[net] ??= { g, pins: [] }).pins.push(pin); });
+  const groupOf = net => net === "GND" ? "gnd" : net === "5V" ? "pwr" : net === "3V3" ? "p3" : byNet[net].g;
+  const j1Of = net => net === "GND" ? "" : byNet[net].pins.join("/");
+  const src = net => net === "GND" ? "" : "J1·" + j1Of(net);
+
+  let hdr = `<div class="cap"><span>ungerade</span><span>Pin 1 oben links</span><span>gerade</span></div>`;
+  const cell = (row, side) => {
+    const [pin, name, , , net, g] = row;
+    const off = !net;
+    const text = net || (name === "NC" ? "NC" : name);
+    const lbl = `<span class="lbl ${side} ${off ? "off" : ""}" style="--c:${C(g)}">${text}</span>`;
+    const dot = `<span class="pin ${off ? "off" : ""}" style="--c:${C(g)}">${pin}</span>`;
+    return [lbl, dot];
+  };
+  for (let r = 0; r < 20; r++) {
+    const [lo, po] = cell(J1[2 * r], "l"), [le, pe] = cell(J1[2 * r + 1], "");
+    hdr += lo + po + pe + le;
+  }
+  document.getElementById("hdr").innerHTML = hdr;
+
+  document.getElementById("j1").innerHTML = J1.map(([pin, name, lx, fn, net, g, dest]) =>
+    `<tr><td class="mono">${pin}</td><td class="mono">${name}</td><td class="mono muted">${lx}</td><td class="muted">${fn}</td>` +
+    `<td>${net ? `<span class="sig" style="--c:${C(g)}">${net}</span>` : `<span class="muted">–</span>`}</td><td>${dest}</td></tr>`).join("");
+
+  document.getElementById("j2").innerHTML = J2.map(([name, rows]) =>
+    `<tr class="grp"><td colspan="4">${name}</td></tr>` + rows.map(([pin, net, j1, ui]) =>
+      `<tr><td class="mono">${pin}</td><td><span class="sig" style="--c:${C(groupOf(net))}">${net}</span></td>` +
+      `<td class="mono muted">${j1}</td><td>${ui}</td></tr>`).join("")).join("");
+
+  let j4 = "";
+  for (let r = 0; r < J4.length / 2; r++) {
+    const a = J4[2 * r], b = J4[2 * r + 1];
+    const td = (pin, net) => `<td class="mono">${pin}</td><td><span class="sig" style="--c:${C(groupOf(net))}">${net}</span></td>` +
+                             `<td class="mono muted">${j1Of(net)}</td>`;
+    j4 += `<tr>${td(2 * r + 1, a)}${td(2 * r + 2, b)}</tr>`;
+  }
+  document.getElementById("j4").innerHTML = j4;
+
+  document.getElementById("j2-draw").innerHTML = J2.flatMap(([, rows]) => rows).map(([pin, net]) => {
+    const c = C(groupOf(net));
+    return `<span class="sq" style="--c:${c}">${pin}</span><span class="dsig" style="--c:${c}">${net}</span><span class="src">${src(net)}</span>`;
+  }).join("");
+
+  let dual = "";
+  for (let r = 0; r < J4.length / 2; r++) {
+    const a = J4[2 * r], b = J4[2 * r + 1], ca = C(groupOf(a)), cb = C(groupOf(b));
+    dual += `<span class="dsig r" style="--c:${ca}">${a}</span><span class="src r">${src(a)}</span>` +
+            `<span class="sq" style="--c:${ca}">${2 * r + 1}</span><span class="sq" style="--c:${cb}">${2 * r + 2}</span>` +
+            `<span class="src">${src(b)}</span><span class="dsig" style="--c:${cb}">${b}</span>`;
+  }
+  document.getElementById("j4-draw").innerHTML = dual;
+})();
+</script>
+</body>
+</html>

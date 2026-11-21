@@ -54,7 +54,7 @@
       (at -13.97 13.97 0)
       (length 3.81)
       (name
-        "SPI_CLK"
+        "5V"
         (effects
           (font
             (size .9 .9))))
@@ -69,7 +69,7 @@
       (at -13.97 11.43 0)
       (length 3.81)
       (name
-        "LCD_CS"
+        "SPI_CLK"
         (effects
           (font
             (size .9 .9))))
@@ -99,7 +99,7 @@
       (at -13.97 6.35 0)
       (length 3.81)
       (name
-        "ENC_SW"
+        "LCD_RST"
         (effects
           (font
             (size .9 .9))))
@@ -129,7 +129,7 @@
       (at -13.97 1.27 0)
       (length 3.81)
       (name
-        "ENC_B"
+        "LCD_CS"
         (effects
           (font
             (size .9 .9))))
@@ -144,7 +144,7 @@
       (at -13.97 -1.27 0)
       (length 3.81)
       (name
-        "LCD_RST"
+        "LCD_BL"
         (effects
           (font
             (size .9 .9))))
@@ -159,7 +159,7 @@
       (at -13.97 -3.81 0)
       (length 3.81)
       (name
-        "ENC_A"
+        "GND"
         (effects
           (font
             (size .9 .9))))
@@ -189,7 +189,7 @@
       (at -13.97 -8.89 0)
       (length 3.81)
       (name
-        "GND"
+        "ENC_A"
         (effects
           (font
             (size .9 .9))))
@@ -204,7 +204,7 @@
       (at -13.97 -11.43 0)
       (length 3.81)
       (name
-        "GND"
+        "ENC_B"
         (effects
           (font
             (size .9 .9))))
@@ -219,7 +219,7 @@
       (at -13.97 -13.97 0)
       (length 3.81)
       (name
-        "5V"
+        "ENC_SW"
         (effects
           (font
             (size .9 .9))))
@@ -234,7 +234,7 @@
       (at -13.97 -16.51 0)
       (length 3.81)
       (name
-        "LCD_BL"
+        "GND"
         (effects
           (font
             (size .9 .9))))

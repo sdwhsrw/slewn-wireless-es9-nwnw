@@ -11,4 +11,5 @@
   (type "KiCad")
   (uri "${KIPRJMOD}/Libs/V16.kicad_sym")
   (options "")
-  (descr "V16 project library")))
+  (descr "V16 project library"))
+(lib (name "Slewn_MAIN") (type "KiCad") (uri "${KIPRJMOD}/library/Slewn_MAIN.kicad_sym") (options "") (descr "MAIN redraw library (see library/SOURCES.md)")))

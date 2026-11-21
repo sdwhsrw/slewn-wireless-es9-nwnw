@@ -54,4 +54,5 @@
   (uri "${KICAD10_FOOTPRINT_DIR}/Fiducial.pretty")
   (options "")
   (descr "KiCad 10 标准定位点封装库"))
-(lib (name "Kinghelm") (type "KiCad") (uri "${KIPRJMOD}/Libs/Kinghelm.pretty") (options "") (descr "Kinghelm review footprints")))
+(lib (name "Kinghelm") (type "KiCad") (uri "${KIPRJMOD}/Libs/Kinghelm.pretty") (options "") (descr "Kinghelm review footprints"))
+(lib (name "Slewn_MAIN") (type "KiCad") (uri "${KIPRJMOD}/library/Slewn_MAIN.pretty") (options "") (descr "MAIN redraw library (see library/SOURCES.md)")))

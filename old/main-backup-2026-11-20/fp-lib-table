@@ -1,0 +1,57 @@
+(fp_lib_table
+(version 7)
+(lib
+  (name "SlewnV13")
+  (type "KiCad")
+  (uri "${KIPRJMOD}/Libs/SlewnV13.pretty")
+  (options "")
+  (descr "V13 local library"))
+(lib
+  (name "V16")
+  (type "KiCad")
+  (uri "${KIPRJMOD}/Libs/V16.pretty")
+  (options "")
+  (descr "V16 project library"))
+(lib
+  (name "Capacitor_SMD")
+  (type "KiCad")
+  (uri "${KICAD10_FOOTPRINT_DIR}/Capacitor_SMD.pretty")
+  (options "")
+  (descr "KiCad 10 标准封装库"))
+(lib
+  (name "Connector_PinSocket_2.54mm")
+  (type "KiCad")
+  (uri "${KICAD10_FOOTPRINT_DIR}/Connector_PinSocket_2.54mm.pretty")
+  (options "")
+  (descr "KiCad 10 标准封装库"))
+(lib
+  (name "Diode_SMD")
+  (type "KiCad")
+  (uri "${KICAD10_FOOTPRINT_DIR}/Diode_SMD.pretty")
+  (options "")
+  (descr "KiCad 10 标准封装库"))
+(lib
+  (name "Package_DFN_QFN")
+  (type "KiCad")
+  (uri "${KICAD10_FOOTPRINT_DIR}/Package_DFN_QFN.pretty")
+  (options "")
+  (descr "KiCad 10 标准封装库"))
+(lib
+  (name "Resistor_SMD")
+  (type "KiCad")
+  (uri "${KICAD10_FOOTPRINT_DIR}/Resistor_SMD.pretty")
+  (options "")
+  (descr "KiCad 10 标准封装库"))
+(lib
+  (name "TestPoint")
+  (type "KiCad")
+  (uri "${KICAD10_FOOTPRINT_DIR}/TestPoint.pretty")
+  (options "")
+  (descr "KiCad 10 标准封装库"))
+(lib
+  (name "Fiducial")
+  (type "KiCad")
+  (uri "${KICAD10_FOOTPRINT_DIR}/Fiducial.pretty")
+  (options "")
+  (descr "KiCad 10 标准定位点封装库"))
+(lib (name "Kinghelm") (type "KiCad") (uri "${KIPRJMOD}/Libs/Kinghelm.pretty") (options "") (descr "Kinghelm review footprints")))

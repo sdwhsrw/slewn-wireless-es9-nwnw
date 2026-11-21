@@ -18,3 +18,9 @@ _autosave-*
 # Blender / Python
 *.blend1
 __pycache__/
+
+# superpowers plan-execution scratch
+.superpowers/
+
+# agent worktrees
+.claude/worktrees/

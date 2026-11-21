@@ -8,7 +8,7 @@
   (rev "V20")
   (date "2026-11-19")
   (comment 1 "22 HP / Intellijel 1U / V20 直角双层 PCB")
-  (comment 2 "MAIN / UI connector physical pin numbers must mate 1:1; R20 open during first bring-up."))
+  (comment 2 "MAIN / UI connector physical pin numbers must mate 1:1; check 5 V before fitting the Radxa."))
 (lib_symbols
   (symbol
     "SlewnV13_UI:J1"
@@ -63,7 +63,7 @@
         (at -13.97 13.97 0)
         (length 3.81)
         (name
-          "SPI_CLK"
+          "5V"
           (effects
             (font
               (size .9 .9))))
@@ -78,7 +78,7 @@
         (at -13.97 11.43 0)
         (length 3.81)
         (name
-          "LCD_CS"
+          "SPI_CLK"
           (effects
             (font
               (size .9 .9))))
@@ -108,7 +108,7 @@
         (at -13.97 6.35 0)
         (length 3.81)
         (name
-          "ENC_SW"
+          "LCD_RST"
           (effects
             (font
               (size .9 .9))))
@@ -138,7 +138,7 @@
         (at -13.97 1.27 0)
         (length 3.81)
         (name
-          "ENC_B"
+          "LCD_CS"
           (effects
             (font
               (size .9 .9))))
@@ -153,7 +153,7 @@
         (at -13.97 -1.27 0)
         (length 3.81)
         (name
-          "LCD_RST"
+          "LCD_BL"
           (effects
             (font
               (size .9 .9))))
@@ -168,7 +168,7 @@
         (at -13.97 -3.81 0)
         (length 3.81)
         (name
-          "ENC_A"
+          "GND"
           (effects
             (font
               (size .9 .9))))
@@ -198,7 +198,7 @@
         (at -13.97 -8.89 0)
         (length 3.81)
         (name
-          "GND"
+          "ENC_A"
           (effects
             (font
               (size .9 .9))))
@@ -213,7 +213,7 @@
         (at -13.97 -11.43 0)
         (length 3.81)
         (name
-          "GND"
+          "ENC_B"
           (effects
             (font
               (size .9 .9))))
@@ -228,7 +228,7 @@
         (at -13.97 -13.97 0)
         (length 3.81)
         (name
-          "5V"
+          "ENC_SW"
           (effects
             (font
               (size .9 .9))))
@@ -243,7 +243,7 @@
         (at -13.97 -16.51 0)
         (length 3.81)
         (name
-          "LCD_BL"
+          "GND"
           (effects
             (font
               (size .9 .9))))
@@ -1461,7 +1461,7 @@
     (justify left bottom))
   (uuid ea0006f3-1570-41d0-9e4d-81a42e568434))
 (label
-  "UI_SPI_CLK"
+  "UI_5V"
   (at 33.02 45.72 0)
   (effects
     (font
@@ -1469,7 +1469,7 @@
     (justify left bottom))
   (uuid f8fe29b8-ea65-4dba-b346-157684075609))
 (label
-  "UI_LCD_CS"
+  "UI_SPI_CLK"
   (at 33.02 48.26 0)
   (effects
     (font
@@ -1485,7 +1485,7 @@
     (justify left bottom))
   (uuid fbc03aea-0231-41cf-854a-5c706aa80175))
 (label
-  "UI_ENC_SW"
+  "UI_LCD_RST"
   (at 33.02 53.34 0)
   (effects
     (font
@@ -1501,7 +1501,7 @@
     (justify left bottom))
   (uuid cd0d6332-ee02-454e-8b1d-0af7f22e58b5))
 (label
-  "UI_ENC_B"
+  "UI_LCD_CS"
   (at 33.02 58.42 0)
   (effects
     (font
@@ -1509,7 +1509,7 @@
     (justify left bottom))
   (uuid 99f80025-dbc5-4f16-a565-5692990ca70a))
 (label
-  "UI_LCD_RST"
+  "UI_LCD_BL"
   (at 33.02 60.96 0)
   (effects
     (font
@@ -1517,7 +1517,7 @@
     (justify left bottom))
   (uuid 945efb53-1879-47bb-918a-aaffa5b2c1cb))
 (label
-  "UI_ENC_A"
+  "UI_GND"
   (at 33.02 63.5 0)
   (effects
     (font
@@ -1533,7 +1533,7 @@
     (justify left bottom))
   (uuid 1b100563-95b9-4f18-a37a-b251c41257d8))
 (label
-  "UI_GND"
+  "UI_ENC_A"
   (at 33.02 68.58 0)
   (effects
     (font
@@ -1541,7 +1541,7 @@
     (justify left bottom))
   (uuid 92201c29-4d38-45ec-8af1-511443ff2101))
 (label
-  "UI_GND"
+  "UI_ENC_B"
   (at 33.02 71.12 0)
   (effects
     (font
@@ -1549,7 +1549,7 @@
     (justify left bottom))
   (uuid 861c2adf-06f6-456b-a879-90da00feb124))
 (label
-  "UI_5V"
+  "UI_ENC_SW"
   (at 33.02 73.66 0)
   (effects
     (font
@@ -1557,7 +1557,7 @@
     (justify left bottom))
   (uuid 2759bb38-1119-44d4-bddd-d37ed39a84ae))
 (label
-  "UI_LCD_BL"
+  "UI_GND"
   (at 33.02 76.2 0)
   (effects
     (font

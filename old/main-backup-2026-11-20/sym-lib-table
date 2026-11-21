@@ -1,0 +1,14 @@
+(sym_lib_table
+(version 7)
+(lib
+  (name "SlewnV13")
+  (type "KiCad")
+  (uri "${KIPRJMOD}/Libs/SlewnV13.kicad_sym")
+  (options "")
+  (descr "V13 local library"))
+(lib
+  (name "V16")
+  (type "KiCad")
+  (uri "${KIPRJMOD}/Libs/V16.kicad_sym")
+  (options "")
+  (descr "V16 project library")))

@@ -1,0 +1,37 @@
+(footprint
+"WE_LHMI_74437324022"
+(version 20240108)
+(generator pcbnew)
+(layer "F.Cu")
+(attr smd)
+(descr "Wuerth 74437324022, 5.2 overall, 1.5 x 2.4 pads with 2.2 gap. Per vendor keep area between pads free of traces and vias.")
+(fp_rect
+  (start -2.23 -2.03)
+  (end 2.23 2.03)
+  (stroke
+    (width 0.1)
+    (type default))
+  (fill none)
+  (layer "F.Fab"))
+(fp_rect
+  (start -2.88 -2.45)
+  (end 2.88 2.45)
+  (stroke
+    (width 0.05)
+    (type default))
+  (fill none)
+  (layer "F.CrtYd"))
+(pad
+  "1"
+  smd
+  rect
+  (at -1.85 0)
+  (size 1.5 2.4)
+  (layers "F.Cu" "F.Paste" "F.Mask"))
+(pad
+  "2"
+  smd
+  rect
+  (at 1.85 0)
+  (size 1.5 2.4)
+  (layers "F.Cu" "F.Paste" "F.Mask")))

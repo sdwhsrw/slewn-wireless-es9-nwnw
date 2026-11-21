@@ -1,0 +1,37 @@
+Slewn Air V13 / 22HP / 2026-11-18
+
+本工程随附的标准封装和 STEP 模型来源于 KiCad 10.0.8：
+https://gitlab.com/kicad/libraries/kicad-footprints
+https://gitlab.com/kicad/libraries/kicad-packages3D
+许可证：知识共享署名－相同方式共享 4.0，附带 KiCad 电子设计例外条款。
+STEP 文件头中保留原作者声明。
+https://creativecommons.org/licenses/by-sa/4.0/legalcode
+https://gitlab.com/kicad/libraries/kicad-packages3D/-/blob/master/LICENSE.md
+https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/LICENSE.md
+
+本工程的修改包括：本地库名称与模型相对路径、机械安装封装、微雪模块封装、
+Radxa 与显示屏排针，以及直立式 J3 连接器的钻孔和制造注释。
+合并工程中的 UI 面板板位号统一加 100；MAIN 主板与 UI 面板板仍是两块独立电路板。
+
+微雪模块尺寸和黑色被动散热片外观由用户提供。散热片仅按近似外形建模，
+未经实物测量或制造商确认。Radxa 的几何尺寸和 GPIO 定义依据 Radxa ZERO 3W 文档。
+装配说明附录中的显示屏图纸为用户提供的 TB147-01-08-B 厂商资料，
+保留原作者信息和原始标注。
+
+J3 制造商图纸：
+https://www.we-online.com/components/products/datasheet/61201021621.pdf
+
+元件链接用于识别选型，不代表实时库存或采购状态。
+需要按实物复核的尺寸已列入装配说明。
+
+V13 编码器 STEP 模型依据 Bourns PEC11R-4xxxF-Sxxxx 尺寸在本工程中建立，
+包含 L25 轴、引脚和安装卡脚；该模型用于名义尺寸装配检查，并非制造商实体模型。
+
+V14：新增 Harwin M20-9962045 截取14针的名义包络STEP，模型由本工程生成。原厂图纸见排针装配PDF附页。
+本PCB专用包不含整机结构模型及显示屏图纸；上文的V13来源记录仅用于追溯。
+
+V20 MAIN J2 90° 弯插公针。Kinghelm KH-2.54PH90-1X14P-L13.8。工程本地封装和 STEP 依据下列制造商图纸的名义尺寸绘制。针尖倒角与弯曲圆角为外形示意。
+https://datasheet.lcsc.com/datasheet/pdf/6d26e9776e9dbb9a3dbfce9f7b25db9a.pdf?productCode=C2905430
+
+V20 金航标连接器。Kinghelm.pretty 封装与对应 STEP 按原厂图纸在项目内重建。母座内部弹片为示意。图纸与采购来源见上级项目的选型目录。
+https://datasheet.lcsc.com/datasheet/pdf/6d26e9776e9dbb9a3dbfce9f7b25db9a.pdf?productCode=C2905430

@@ -1,0 +1,645 @@
+(kicad_symbol_lib
+(version 20231120)
+(generator kicad_symbol_editor)
+(symbol
+  "EF"
+  (pin_names
+    (offset .5))
+  (in_bom yes)
+  (on_board yes)
+  (property
+    "Reference"
+    "X"
+    (at 0 30.479999999999997 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Value"
+    "EF"
+    (at 0 -30.479999999999997 0)
+    (effects
+      (font
+        (size 1 1))))
+  (symbol
+    "EF_0_1"
+    (rectangle
+      (start -10.16 27.939999999999998)
+      (end 10.16 -27.939999999999998)
+      (stroke
+        (width .254)
+        (type default))
+      (fill
+        (type background))))
+  (symbol
+    "EF_1_1"
+    (pin
+      passive
+      line
+      (at -13.97 25.4 0)
+      (length 3.81)
+      (name
+        "DEVSLP"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "1"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      open_collector
+      line
+      (at -13.97 22.86 0)
+      (length 3.81)
+      (name
+        "PGOOD"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "2"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 20.32 0)
+      (length 3.81)
+      (name
+        "PGTH"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "3"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 17.78 0)
+      (length 3.81)
+      (name
+        "OUT"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "4"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 15.24 0)
+      (length 3.81)
+      (name
+        "OUT"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "5"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 12.7 0)
+      (length 3.81)
+      (name
+        "OUT"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "6"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 10.16 0)
+      (length 3.81)
+      (name
+        "OUT"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "7"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 7.62 0)
+      (length 3.81)
+      (name
+        "OUT"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "8"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 5.08 0)
+      (length 3.81)
+      (name
+        "IN"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "9"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 2.54 0)
+      (length 3.81)
+      (name
+        "IN"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "10"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 0.0 0)
+      (length 3.81)
+      (name
+        "IN"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "11"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -2.54 0)
+      (length 3.81)
+      (name
+        "IN"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "12"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -5.08 0)
+      (length 3.81)
+      (name
+        "IN"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "13"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -7.62 0)
+      (length 3.81)
+      (name
+        "EN/UVLO"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "14"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -10.16 0)
+      (length 3.81)
+      (name
+        "OVP"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "15"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -12.7 0)
+      (length 3.81)
+      (name
+        "GND"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "16"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -15.24 0)
+      (length 3.81)
+      (name
+        "ILIM"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "17"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -17.78 0)
+      (length 3.81)
+      (name
+        "dVdT"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "18"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -20.32 0)
+      (length 3.81)
+      (name
+        "IMON"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "19"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      open_collector
+      line
+      (at -13.97 -22.86 0)
+      (length 3.81)
+      (name
+        "FLT"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "20"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -25.4 0)
+      (length 3.81)
+      (name
+        "EP/GND"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "21"
+        (effects
+          (font
+            (size 0.9 0.9)))))))
+(symbol
+  "RC"
+  (pin_names
+    (offset .5))
+  (in_bom yes)
+  (on_board yes)
+  (property
+    "Reference"
+    "X"
+    (at 0 6.35 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Value"
+    "RC"
+    (at 0 -6.35 0)
+    (effects
+      (font
+        (size 1 1))))
+  (symbol
+    "RC_0_1"
+    (rectangle
+      (start -10.16 3.81)
+      (end 10.16 -3.81)
+      (stroke
+        (width .254)
+        (type default))
+      (fill
+        (type background))))
+  (symbol
+    "RC_1_1"
+    (pin
+      passive
+      line
+      (at -13.97 1.27 0)
+      (length 3.81)
+      (name
+        "1"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "1"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -1.27 0)
+      (length 3.81)
+      (name
+        "2"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "2"
+        (effects
+          (font
+            (size 0.9 0.9)))))))
+(symbol
+  "D"
+  (pin_names
+    (offset .5))
+  (in_bom yes)
+  (on_board yes)
+  (property
+    "Reference"
+    "X"
+    (at 0 6.35 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Value"
+    "D"
+    (at 0 -6.35 0)
+    (effects
+      (font
+        (size 1 1))))
+  (symbol
+    "D_0_1"
+    (rectangle
+      (start -10.16 3.81)
+      (end 10.16 -3.81)
+      (stroke
+        (width .254)
+        (type default))
+      (fill
+        (type background))))
+  (symbol
+    "D_1_1"
+    (pin
+      passive
+      line
+      (at -13.97 1.27 0)
+      (length 3.81)
+      (name
+        "K"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "1"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -1.27 0)
+      (length 3.81)
+      (name
+        "A"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "2"
+        (effects
+          (font
+            (size 0.9 0.9)))))))
+(symbol
+  "L"
+  (pin_names
+    (offset .5))
+  (in_bom yes)
+  (on_board yes)
+  (property
+    "Reference"
+    "X"
+    (at 0 6.35 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Value"
+    "L"
+    (at 0 -6.35 0)
+    (effects
+      (font
+        (size 1 1))))
+  (symbol
+    "L_0_1"
+    (rectangle
+      (start -10.16 3.81)
+      (end 10.16 -3.81)
+      (stroke
+        (width .254)
+        (type default))
+      (fill
+        (type background))))
+  (symbol
+    "L_1_1"
+    (pin
+      passive
+      line
+      (at -13.97 1.27 0)
+      (length 3.81)
+      (name
+        "1"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "1"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -1.27 0)
+      (length 3.81)
+      (name
+        "2"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "2"
+        (effects
+          (font
+            (size 0.9 0.9)))))))
+(symbol
+  "CP"
+  (pin_names
+    (offset .5))
+  (in_bom yes)
+  (on_board yes)
+  (property
+    "Reference"
+    "X"
+    (at 0 6.35 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Value"
+    "CP"
+    (at 0 -6.35 0)
+    (effects
+      (font
+        (size 1 1))))
+  (symbol
+    "CP_0_1"
+    (rectangle
+      (start -10.16 3.81)
+      (end 10.16 -3.81)
+      (stroke
+        (width .254)
+        (type default))
+      (fill
+        (type background))))
+  (symbol
+    "CP_1_1"
+    (pin
+      passive
+      line
+      (at -13.97 1.27 0)
+      (length 3.81)
+      (name
+        "+"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "1"
+        (effects
+          (font
+            (size 0.9 0.9)))))
+    (pin
+      passive
+      line
+      (at -13.97 -1.27 0)
+      (length 3.81)
+      (name
+        "−"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "2"
+        (effects
+          (font
+            (size 0.9 0.9)))))))
+(symbol
+  "TP"
+  (pin_names
+    (offset .5))
+  (in_bom yes)
+  (on_board yes)
+  (property
+    "Reference"
+    "X"
+    (at 0 5.08 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Value"
+    "TP"
+    (at 0 -5.08 0)
+    (effects
+      (font
+        (size 1 1))))
+  (symbol
+    "TP_0_1"
+    (rectangle
+      (start -10.16 2.54)
+      (end 10.16 -2.54)
+      (stroke
+        (width .254)
+        (type default))
+      (fill
+        (type background))))
+  (symbol
+    "TP_1_1"
+    (pin
+      passive
+      line
+      (at -13.97 0.0 0)
+      (length 3.81)
+      (name
+        "TP"
+        (effects
+          (font
+            (size 0.95 0.95))))
+      (number
+        "1"
+        (effects
+          (font
+            (size 0.9 0.9))))))))

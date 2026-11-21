@@ -74,20 +74,24 @@ def pin_name_boxes(lib_id: str) -> list[tuple[str, tuple]]:
     return out
 
 
-def prepare_project(d: Path) -> None:
-    """A throw-away project folder that resolves the same libraries as hw/main."""
+def prepare_project(d: Path, project: Path = PROJECT, name: str = "Slewn_V20_MAIN") -> None:
+    """A throw-away project folder that resolves the same libraries as `project` (hw/main by default)."""
     d.mkdir(parents=True, exist_ok=True)
-    for f in ("Slewn_V20_MAIN.kicad_pro", "sym-lib-table", "fp-lib-table"):
-        shutil.copy(PROJECT / f, d / f)
-    for name in ("library", "Libs"):
-        link = d / name
-        if not link.exists():
-            link.symlink_to(PROJECT / name)
+    for f in (f"{name}.kicad_pro", "sym-lib-table", "fp-lib-table"):
+        shutil.copy(project / f, d / f)
+    for lib in ("library", "Libs"):
+        link = d / lib
+        if (project / lib).exists() and not link.exists():
+            link.symlink_to(project / lib)
 
 
 class Sheet:
-    def __init__(self, old_sch: Path, paper: str = "A3"):
+    def __init__(self, old_sch: Path, paper: str = "A3", project: str = "Slewn_V20_MAIN",
+                 symbol_map: dict[str, str] = SYMBOL_MAP, footprint_map: dict[str, str] = FOOTPRINT_MAP):
+        """`project` names the instances; the maps give each reference its symbol and footprint."""
         root = parse(Path(old_sch).read_text())
+        self.project = project
+        self.symbol_map, self.footprint_map = symbol_map, footprint_map
         self.root_uuid = find(root, "uuid")[1]
         self.title_block = find(root, "title_block")
         self.paper = paper
@@ -109,7 +113,8 @@ class Sheet:
 
     def add_part(self, ref: str, value: str, description: str) -> None:
         """A part the old sheet does not have; its UUID derives from the reference so reruns keep it."""
-        self.old[ref] = {"uuid": str(uuidlib.uuid5(uuidlib.NAMESPACE_URL, f"slewn-main/{ref}")),
+        ns = "slewn-main" if self.project == "Slewn_V20_MAIN" else self.project.lower()
+        self.old[ref] = {"uuid": str(uuidlib.uuid5(uuidlib.NAMESPACE_URL, f"{ns}/{ref}")),
                          "props": {"Reference": (ref, False), "Value": (value, False), "Footprint": ("", True),
                                    "Datasheet": ("", True), "Description": (description, True)}}
 
@@ -176,7 +181,7 @@ class Sheet:
     def place(self, ref: str, x: float, y: float, rot: int = 0, fields="auto", dnp: bool = False) -> None:
         """Place `ref`; `fields` puts Reference/Value 'right', 'left', 'above' or 'below' the body,
         or at an (x, y) for Reference with Value one line below. `dnp` marks it Do Not Populate."""
-        lib_id = SYMBOL_MAP[ref]
+        lib_id = self.symbol_map[ref]
         self.lib_ids.add(lib_id)
         ox, oy = self.origin
         if isinstance(fields, tuple):
@@ -355,7 +360,7 @@ class Sheet:
             (rx, ry, rj), (vx, vy, vj) = self._field_positions(ref)
             for name, (value, hidden) in old["props"].items():
                 if name == "Footprint":
-                    value, hidden = FOOTPRINT_MAP[ref], True
+                    value, hidden = self.footprint_map[ref], True
                 angle = "0"
                 if name == "Reference":
                     at, hidden = (rx, ry), False
@@ -372,7 +377,7 @@ class Sheet:
         for num in dict.fromkeys(find(p, "number")[1] for u in find_all(lib_sym, "symbol")
                                  for p in find_all(u, "pin")):
             node.append(["pin", Q(num), ["uuid", Q(_u())]])
-        node.append(["instances", ["project", Q("Slewn_V20_MAIN"),
+        node.append(["instances", ["project", Q(self.project),
                                    ["path", Q("/" + self.root_uuid), ["reference", Q(ref)], ["unit", "1"]]]])
         return node
 

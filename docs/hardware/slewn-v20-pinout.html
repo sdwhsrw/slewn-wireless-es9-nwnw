@@ -225,9 +225,9 @@ a { color: var(--lcd); }
     [40, "GPIO3_A5", 101, "I2S3_SDO_M0", "I2S_DOUT", "i2s", "J4·10"]
   ];
   const J2 = [
-    ["Display J102", [[1, "GND", "", "J102·1 GND"], [2, "5V", "2/4", "R104 → J102·2 VCC"], [3, "SPI_CLK", "23", "J102·3 SCL"],
+    ["Display J102", [[1, "GND", "", "J102·1 GND"], [2, "5V", "2/4", "J102·2 VDD"], [3, "SPI_CLK", "23", "J102·3 SCL"],
       [4, "SPI_MOSI", "19", "J102·4 SDA"], [5, "LCD_RST", "15", "J102·5 RES"], [6, "LCD_DC", "16", "J102·6 DC"],
-      [7, "LCD_CS", "24", "J102·7 CS"], [8, "LCD_BL", "18", "J102·8 BLK, R105 Pull-down"]]],
+      [7, "LCD_CS", "24", "J102·7 CS"], [8, "LCD_BL", "18", "J102·8 BL (R104 DNP)"]]],
     ["Encoder ENC101", [[9, "GND", "", "Masse"], [10, "3V3", "1/17", "Pull-ups R101–R103"], [11, "ENC_A", "32", "ENC101 A"],
       [12, "ENC_B", "33", "ENC101 B"], [13, "ENC_SW", "36", "ENC101 SW"], [14, "GND", "", "ENC101 C"]]]
   ];

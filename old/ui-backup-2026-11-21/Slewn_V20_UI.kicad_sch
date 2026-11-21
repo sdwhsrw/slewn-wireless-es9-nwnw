@@ -1,0 +1,2366 @@
+(kicad_sch
+(version 20231120)
+(generator "eeschema")
+(uuid b1ca5a2e-4c7b-4c72-8763-4df07fa74c02)
+(paper "A3")
+(title_block
+  (title "SLEWN AIR V20 / UI / 控制与显示接口")
+  (rev "V20")
+  (date "2026-11-19")
+  (comment 1 "22 HP / Intellijel 1U / V20 直角双层 PCB")
+  (comment 2 "MAIN / UI connector physical pin numbers must mate 1:1; check 5 V before fitting the Radxa."))
+(lib_symbols
+  (symbol
+    "SlewnV13_UI:J1"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 22.78 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "J1_0_1"
+      (rectangle
+        (start -10.16 19.78)
+        (end 10.16 -19.78)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "J1_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 16.51 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 13.97 0)
+        (length 3.81)
+        (name
+          "5V"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "2"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 11.43 0)
+        (length 3.81)
+        (name
+          "SPI_CLK"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "3"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 8.89 0)
+        (length 3.81)
+        (name
+          "SPI_MOSI"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "4"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 6.35 0)
+        (length 3.81)
+        (name
+          "LCD_RST"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "5"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 3.81 0)
+        (length 3.81)
+        (name
+          "LCD_DC"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "6"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "LCD_CS"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "7"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "LCD_BL"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "8"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -3.81 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "9"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -6.35 0)
+        (length 3.81)
+        (name
+          "3V3"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "10"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -8.89 0)
+        (length 3.81)
+        (name
+          "ENC_A"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "11"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -11.43 0)
+        (length 3.81)
+        (name
+          "ENC_B"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "12"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -13.97 0)
+        (length 3.81)
+        (name
+          "ENC_SW"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "13"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -16.51 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "14"
+          (effects
+            (font
+              (size .9 .9)))))))
+  (symbol
+    "SlewnV13_UI:J2"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 15.16 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "J2_0_1"
+      (rectangle
+        (start -10.16 12.16)
+        (end 10.16 -12.16)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "J2_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 8.89 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 6.35 0)
+        (length 3.81)
+        (name
+          "TFT_5V"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "2"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 3.81 0)
+        (length 3.81)
+        (name
+          "SPI_CLK"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "3"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "SPI_MOSI"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "4"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "LCD_RST"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "5"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -3.81 0)
+        (length 3.81)
+        (name
+          "LCD_DC"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "6"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -6.35 0)
+        (length 3.81)
+        (name
+          "LCD_CS"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "7"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -8.89 0)
+        (length 3.81)
+        (name
+          "LCD_BL"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "8"
+          (effects
+            (font
+              (size .9 .9)))))))
+  (symbol
+    "SlewnV13_UI:ENC1"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 12.620000000000001 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "ENC1_0_1"
+      (rectangle
+        (start -10.16 9.620000000000001)
+        (end 10.16 -9.620000000000001)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "ENC1_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 6.35 0)
+        (length 3.81)
+        (name
+          "ENC_A"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "A"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 3.81 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "C"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "ENC_B"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "B"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "ENC_SW"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "S1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -3.81 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "S2"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -6.35 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "MP"
+          (effects
+            (font
+              (size .9 .9)))))))
+  (symbol
+    "SlewnV13_UI:R1"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 11 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "R1_0_1"
+      (rectangle
+        (start -10.16 8)
+        (end 10.16 -8)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "R1_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "3V3"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "ENC_A"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "2"
+          (effects
+            (font
+              (size .9 .9)))))))
+  (symbol
+    "SlewnV13_UI:C1"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 11 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "C1_0_1"
+      (rectangle
+        (start -10.16 8)
+        (end 10.16 -8)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "C1_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "ENC_A"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "2"
+          (effects
+            (font
+              (size .9 .9)))))))
+  (symbol
+    "SlewnV13_UI:R2"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 11 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "R2_0_1"
+      (rectangle
+        (start -10.16 8)
+        (end 10.16 -8)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "R2_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "3V3"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "ENC_B"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "2"
+          (effects
+            (font
+              (size .9 .9)))))))
+  (symbol
+    "SlewnV13_UI:C2"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 11 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "C2_0_1"
+      (rectangle
+        (start -10.16 8)
+        (end 10.16 -8)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "C2_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "ENC_B"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "2"
+          (effects
+            (font
+              (size .9 .9)))))))
+  (symbol
+    "SlewnV13_UI:R3"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 11 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "R3_0_1"
+      (rectangle
+        (start -10.16 8)
+        (end 10.16 -8)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "R3_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "3V3"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "ENC_SW"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "2"
+          (effects
+            (font
+              (size .9 .9)))))))
+  (symbol
+    "SlewnV13_UI:C3"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 11 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "C3_0_1"
+      (rectangle
+        (start -10.16 8)
+        (end 10.16 -8)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "C3_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "ENC_SW"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "2"
+          (effects
+            (font
+              (size .9 .9)))))))
+  (symbol
+    "SlewnV13_UI:R4"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 11 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "R4_0_1"
+      (rectangle
+        (start -10.16 8)
+        (end 10.16 -8)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "R4_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "5V"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "TFT_5V"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "2"
+          (effects
+            (font
+              (size .9 .9)))))))
+  (symbol
+    "SlewnV13_UI:C4"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 11 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "C4_0_1"
+      (rectangle
+        (start -10.16 8)
+        (end 10.16 -8)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "C4_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "TFT_5V"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "2"
+          (effects
+            (font
+              (size .9 .9)))))))
+  (symbol
+    "SlewnV13_UI:R5"
+    (pin_names
+      (offset .5))
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "X"
+      (at 0 11 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property
+      "Value"
+      "value"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (symbol
+      "R5_0_1"
+      (rectangle
+        (start -10.16 8)
+        (end 10.16 -8)
+        (stroke
+          (width .254)
+          (type default))
+        (fill
+          (type background))))
+    (symbol
+      "R5_1_1"
+      (pin
+        passive
+        line
+        (at -13.97 1.27 0)
+        (length 3.81)
+        (name
+          "LCD_BL"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "1"
+          (effects
+            (font
+              (size .9 .9)))))
+      (pin
+        passive
+        line
+        (at -13.97 -1.27 0)
+        (length 3.81)
+        (name
+          "GND"
+          (effects
+            (font
+              (size .9 .9))))
+        (number
+          "2"
+          (effects
+            (font
+              (size .9 .9))))))))
+(wire
+  (pts
+    (xy 43.18 43.18)
+    (xy 33.02 43.18))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid e04f6f4c-8487-4ff8-b10b-1d0bd4840f73))
+(wire
+  (pts
+    (xy 43.18 45.72)
+    (xy 33.02 45.72))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid cdda3d00-a81e-4fef-8c79-366a5446a7a7))
+(wire
+  (pts
+    (xy 43.18 48.26)
+    (xy 33.02 48.26))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 0432ded3-4096-45c5-9851-a9402d3434cb))
+(wire
+  (pts
+    (xy 43.18 50.8)
+    (xy 33.02 50.8))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid b26c89b8-d34d-4dd0-856c-6dc8c7479d26))
+(wire
+  (pts
+    (xy 43.18 53.34)
+    (xy 33.02 53.34))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 1ffefa10-97e8-4704-b8ed-2e6e353fccec))
+(wire
+  (pts
+    (xy 43.18 55.88)
+    (xy 33.02 55.88))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid a31b1c36-4558-435f-858d-997de097a9af))
+(wire
+  (pts
+    (xy 43.18 58.42)
+    (xy 33.02 58.42))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid d2c769f4-f961-4b69-91e1-4ab051188f60))
+(wire
+  (pts
+    (xy 43.18 60.96)
+    (xy 33.02 60.96))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid bc60586e-6fc6-444d-a728-3294e01fdce1))
+(wire
+  (pts
+    (xy 43.18 63.5)
+    (xy 33.02 63.5))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 296e6aa9-7648-4bec-a8ba-32abc20df507))
+(wire
+  (pts
+    (xy 43.18 66.04)
+    (xy 33.02 66.04))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 4b518a54-2a5d-4097-a4b7-1582e9eb2a19))
+(wire
+  (pts
+    (xy 43.18 68.58)
+    (xy 33.02 68.58))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 6b182859-56ce-480d-92a3-2620fe31fe4f))
+(wire
+  (pts
+    (xy 43.18 71.12)
+    (xy 33.02 71.12))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 9ee86248-f5c4-4385-bf80-b71330e6a853))
+(wire
+  (pts
+    (xy 43.18 73.66)
+    (xy 33.02 73.66))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 7051a61a-e2a0-45a5-8ca6-a66f082d54ef))
+(wire
+  (pts
+    (xy 43.18 76.2)
+    (xy 33.02 76.2))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 9a6f3e67-2392-4944-94b6-8ba01a567238))
+(wire
+  (pts
+    (xy 138.43 50.8)
+    (xy 128.27 50.8))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 91677e94-eafe-415e-922f-83f27e7af629))
+(wire
+  (pts
+    (xy 138.43 53.34)
+    (xy 128.27 53.34))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid a9c60831-8931-4a8f-b68d-44fc1f15241a))
+(wire
+  (pts
+    (xy 138.43 55.88)
+    (xy 128.27 55.88))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 6e2fa738-33eb-48de-beff-677057aeec1d))
+(wire
+  (pts
+    (xy 138.43 58.42)
+    (xy 128.27 58.42))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 0c333897-dec0-41b7-b449-356729b072e5))
+(wire
+  (pts
+    (xy 138.43 60.96)
+    (xy 128.27 60.96))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 2e84c49c-8e59-4449-8f13-927ae2c448a7))
+(wire
+  (pts
+    (xy 138.43 63.5)
+    (xy 128.27 63.5))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 9213954c-24a6-44cb-9a43-49ce141096f2))
+(wire
+  (pts
+    (xy 138.43 66.04)
+    (xy 128.27 66.04))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 3bac9960-10d7-4fb7-b2f5-49dc4d72b0bc))
+(wire
+  (pts
+    (xy 138.43 68.58)
+    (xy 128.27 68.58))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 48522fb0-15f6-4a63-aaed-6c6a72cdc0ab))
+(wire
+  (pts
+    (xy 233.68 53.34)
+    (xy 223.52 53.34))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 8fbc32d5-c113-473c-8601-d8d64ffe2232))
+(wire
+  (pts
+    (xy 233.68 55.88)
+    (xy 223.52 55.88))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 5e0614a2-cf47-4b8e-b0a6-6f6c4739ef19))
+(wire
+  (pts
+    (xy 233.68 58.42)
+    (xy 223.52 58.42))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid b0a65186-d5e9-44e9-8d06-1d58ba3cb2b5))
+(wire
+  (pts
+    (xy 233.68 60.96)
+    (xy 223.52 60.96))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid ab4925eb-1681-4bfe-818d-e8b309bf7548))
+(wire
+  (pts
+    (xy 233.68 63.5)
+    (xy 223.52 63.5))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 9fa79551-a57e-43c2-89c2-a8aae81231c9))
+(wire
+  (pts
+    (xy 233.68 66.04)
+    (xy 223.52 66.04))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid e8e9c4da-1903-43c9-9d7c-c558f18426df))
+(wire
+  (pts
+    (xy 328.93 58.42)
+    (xy 318.77 58.42))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid f6fdb505-ce57-4fce-ae9b-3e948aae85f2))
+(wire
+  (pts
+    (xy 328.93 60.96)
+    (xy 318.77 60.96))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 84d3a131-3ca2-4a7a-8f09-48db4c844a45))
+(wire
+  (pts
+    (xy 43.18 143.51)
+    (xy 33.02 143.51))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 74691ea9-cc40-4388-b454-feb364f357bb))
+(wire
+  (pts
+    (xy 43.18 146.05)
+    (xy 33.02 146.05))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 94f90868-f836-458d-951d-d1ca931ceae5))
+(wire
+  (pts
+    (xy 138.43 143.51)
+    (xy 128.27 143.51))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 81860a3c-ec41-48bb-9e8c-7cd35b14eb5e))
+(wire
+  (pts
+    (xy 138.43 146.05)
+    (xy 128.27 146.05))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 342f63cb-4a6b-4e08-b24c-e7d6077bf136))
+(wire
+  (pts
+    (xy 233.68 143.51)
+    (xy 223.52 143.51))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid aa2611a2-28b0-4dd9-be0f-00ec7b6c7c78))
+(wire
+  (pts
+    (xy 233.68 146.05)
+    (xy 223.52 146.05))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid b04719cb-d9be-4fa5-99e4-860751173e6a))
+(wire
+  (pts
+    (xy 328.93 143.51)
+    (xy 318.77 143.51))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 1783f304-dfca-4742-a335-42a9d6d7677d))
+(wire
+  (pts
+    (xy 328.93 146.05)
+    (xy 318.77 146.05))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 2a6c5d69-ea25-4a9b-8d05-226b6591ae2e))
+(wire
+  (pts
+    (xy 43.18 218.44)
+    (xy 33.02 218.44))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 9709a61d-aa29-4b7a-93e3-3e2cd9d04ac1))
+(wire
+  (pts
+    (xy 43.18 220.98)
+    (xy 33.02 220.98))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 04a4a3b2-0421-4a3d-a2a3-e1c9069401e2))
+(wire
+  (pts
+    (xy 138.43 218.44)
+    (xy 128.27 218.44))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid ac38c8bd-d014-48f7-9076-6927cbebd50d))
+(wire
+  (pts
+    (xy 138.43 220.98)
+    (xy 128.27 220.98))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 8653b63e-b6bc-489c-9ee5-f0da4a162702))
+(wire
+  (pts
+    (xy 233.68 218.44)
+    (xy 223.52 218.44))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 2e578735-cc33-4cb3-ae44-ee7527d9a4f9))
+(wire
+  (pts
+    (xy 233.68 220.98)
+    (xy 223.52 220.98))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid ed3cb07e-79e3-47c9-9e3b-e5e82bcd4e1c))
+(wire
+  (pts
+    (xy 328.93 218.44)
+    (xy 318.77 218.44))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid c365e332-ae6c-44d4-9518-8c70bd261e6c))
+(wire
+  (pts
+    (xy 328.93 220.98)
+    (xy 318.77 220.98))
+  (stroke
+    (width 0)
+    (type default))
+  (uuid 47d62a33-d053-4084-a62d-808226125880))
+(label
+  "UI_GND"
+  (at 33.02 43.18 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid ea0006f3-1570-41d0-9e4d-81a42e568434))
+(label
+  "UI_5V"
+  (at 33.02 45.72 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid f8fe29b8-ea65-4dba-b346-157684075609))
+(label
+  "UI_SPI_CLK"
+  (at 33.02 48.26 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 9fc1586a-f16c-4fbb-ab0b-7d2a7fedc972))
+(label
+  "UI_SPI_MOSI"
+  (at 33.02 50.8 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid fbc03aea-0231-41cf-854a-5c706aa80175))
+(label
+  "UI_LCD_RST"
+  (at 33.02 53.34 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 66c0fa7a-c873-47ee-8d5a-438aaaf91089))
+(label
+  "UI_LCD_DC"
+  (at 33.02 55.88 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid cd0d6332-ee02-454e-8b1d-0af7f22e58b5))
+(label
+  "UI_LCD_CS"
+  (at 33.02 58.42 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 99f80025-dbc5-4f16-a565-5692990ca70a))
+(label
+  "UI_LCD_BL"
+  (at 33.02 60.96 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 945efb53-1879-47bb-918a-aaffa5b2c1cb))
+(label
+  "UI_GND"
+  (at 33.02 63.5 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 97efbfcb-8df1-4c6f-9873-1bcab0a7d3fc))
+(label
+  "UI_3V3"
+  (at 33.02 66.04 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 1b100563-95b9-4f18-a37a-b251c41257d8))
+(label
+  "UI_ENC_A"
+  (at 33.02 68.58 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 92201c29-4d38-45ec-8af1-511443ff2101))
+(label
+  "UI_ENC_B"
+  (at 33.02 71.12 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 861c2adf-06f6-456b-a879-90da00feb124))
+(label
+  "UI_ENC_SW"
+  (at 33.02 73.66 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 2759bb38-1119-44d4-bddd-d37ed39a84ae))
+(label
+  "UI_GND"
+  (at 33.02 76.2 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid dddb886f-0bcc-41e1-9c89-22a926e96bfd))
+(label
+  "UI_GND"
+  (at 128.27 50.8 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 430f115c-1543-48a0-9b1c-1757921ad838))
+(label
+  "UI_TFT_5V"
+  (at 128.27 53.34 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 74f80a97-b69a-4142-aebc-15bf050b8973))
+(label
+  "UI_SPI_CLK"
+  (at 128.27 55.88 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 15770391-79ef-4ea6-b149-acb151911e62))
+(label
+  "UI_SPI_MOSI"
+  (at 128.27 58.42 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 798020de-d690-4e8d-af2e-aa1cd3219997))
+(label
+  "UI_LCD_RST"
+  (at 128.27 60.96 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid e60e88ba-69c0-4a62-a438-a0bfb27835f3))
+(label
+  "UI_LCD_DC"
+  (at 128.27 63.5 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid de58a27c-4b6e-43f4-afc7-c253378134ce))
+(label
+  "UI_LCD_CS"
+  (at 128.27 66.04 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid d2c63e54-b2c5-45db-999c-ff91e90e893e))
+(label
+  "UI_LCD_BL"
+  (at 128.27 68.58 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 10b894bf-b3be-463c-adb6-ff641e3e2d81))
+(label
+  "UI_ENC_A"
+  (at 223.52 53.34 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 34101ddb-7932-4393-8173-f033f187e7f7))
+(label
+  "UI_GND"
+  (at 223.52 55.88 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 93c18e0b-c93a-43a6-a502-c623b9caa1cb))
+(label
+  "UI_ENC_B"
+  (at 223.52 58.42 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 8349ce98-ecde-420a-a961-3a1b6fd60dcd))
+(label
+  "UI_ENC_SW"
+  (at 223.52 60.96 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 1e5fccd6-d111-44a1-9d44-96acf43f104c))
+(label
+  "UI_GND"
+  (at 223.52 63.5 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 9e444b7a-3fed-41d2-8512-1155068e4377))
+(label
+  "UI_GND"
+  (at 223.52 66.04 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 1fd95cd3-11fb-4b7c-b718-9054a50f3ee8))
+(label
+  "UI_3V3"
+  (at 318.77 58.42 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 1ef701f4-a0fa-4781-ba4a-4fcb4c6a95a0))
+(label
+  "UI_ENC_A"
+  (at 318.77 60.96 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 98132138-2951-479f-b6c6-d4107b1072a8))
+(label
+  "UI_ENC_A"
+  (at 33.02 143.51 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid ebe292b3-3759-4017-938f-1889b6f0100d))
+(label
+  "UI_GND"
+  (at 33.02 146.05 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 7302aa0f-d4bd-4867-9664-3924a5f710de))
+(label
+  "UI_3V3"
+  (at 128.27 143.51 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 6b62eddf-62c4-4156-8f27-8605742b7723))
+(label
+  "UI_ENC_B"
+  (at 128.27 146.05 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 3c1104cb-d938-4fc4-9911-aad31f523e8d))
+(label
+  "UI_ENC_B"
+  (at 223.52 143.51 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid e557d027-6790-46f6-ab69-2cfd248c8a79))
+(label
+  "UI_GND"
+  (at 223.52 146.05 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 6cb489d6-f200-4505-8c4a-7003cb0101d2))
+(label
+  "UI_3V3"
+  (at 318.77 143.51 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 48bb04a3-e3e8-4100-bf3a-6e23e17ad025))
+(label
+  "UI_ENC_SW"
+  (at 318.77 146.05 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 7fe8f4d5-44f5-4528-bb16-84027201df02))
+(label
+  "UI_ENC_SW"
+  (at 33.02 218.44 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 09845d50-26a4-45ca-999a-5872c5ce4ace))
+(label
+  "UI_GND"
+  (at 33.02 220.98 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 9d0ffcdc-abc7-4751-8d8c-4177e43bfa2a))
+(label
+  "UI_5V"
+  (at 128.27 218.44 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 6dc633dc-779a-431e-b4ff-91bfeecb593c))
+(label
+  "UI_TFT_5V"
+  (at 128.27 220.98 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 9824ec09-f552-429d-97d9-0331ed8a2643))
+(label
+  "UI_TFT_5V"
+  (at 223.52 218.44 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 77c26bae-c2f8-4c92-9af1-048844b7f67f))
+(label
+  "UI_GND"
+  (at 223.52 220.98 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid 90bf494e-e464-43c4-a1f5-c51f01437902))
+(label
+  "UI_LCD_BL"
+  (at 318.77 218.44 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid ec9ad882-8a93-4d6d-b4ae-98874b33f4bb))
+(label
+  "UI_GND"
+  (at 318.77 220.98 0)
+  (effects
+    (font
+      (size 1 1))
+    (justify left bottom))
+  (uuid cd6ec6eb-79ff-43c0-a5f9-f21b8a7263fa))
+(symbol
+  (lib_id "SlewnV13_UI:J1")
+  (at 57.15 59.69 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid 3d3eb617-f573-44a0-b046-6a37172751fb)
+  (property
+    "Reference"
+    "J101"
+    (at 57.15 34.91 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "KH-2.54FH-1X14P-H8.5"
+    (at 57.15 84.47 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "Kinghelm:KH-2.54FH-1X14P-H8.5"
+    (at 57.15 59.69 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (property "MPN" "KH-2.54FH-1X14P-H8.5" (at 57.15 59.69 0) (effects (font (size 1 1)) hide))
+  (property "Manufacturer" "Kinghelm" (at 57.15 59.69 0) (effects (font (size 1 1)) hide))
+  (property "LCSC" "C2905420" (at 57.15 59.69 0) (effects (font (size 1 1)) hide))
+  (property "Datasheet" "https://datasheet.lcsc.com/datasheet/pdf/0b31327ce0ac069e744af005bd6b34e8.pdf?productCode=C2905420" (at 57.15 59.69 0) (effects (font (size 1 1)) hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "J101")
+        (unit 1)))))
+(symbol
+  (lib_id "SlewnV13_UI:J2")
+  (at 152.4 59.69 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid 44dd84c3-e98d-4b92-b660-c8f1dece6c37)
+  (property
+    "Reference"
+    "J102"
+    (at 152.4 42.53 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "TB147-01-08-B / 8针 / VDD 5V / 逻辑3.3V"
+    (at 152.4 76.85 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "SlewnV13_UI:J2_TFT8"
+    (at 152.4 59.69 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "J102")
+        (unit 1))))
+  (property
+    "MPN"
+    "TSW-108-07-G-S"
+    (at 152.4 59.69 0)
+    (effects
+      (font
+        (size 1 1))
+      hide)))
+(symbol
+  (lib_id "SlewnV13_UI:ENC1")
+  (at 247.65 59.69 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid 52ee4d10-2dfc-47cc-80bd-99ac14ddf482)
+  (property
+    "Reference"
+    "ENC101"
+    (at 247.65 45.06999999999999 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "PEC11R-4225F-S0024"
+    (at 247.65 74.31 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "SlewnV13_UI:ENC1_ENCODER"
+    (at 247.65 59.69 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "ENC101")
+        (unit 1))))
+  (property
+    "MPN"
+    "PEC11R-4225F-S0024"
+    (at 247.65 59.69 0)
+    (effects
+      (font
+        (size 1 1))
+      hide)))
+(symbol
+  (lib_id "SlewnV13_UI:R1")
+  (at 342.9 59.69 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid 8901e350-5480-4b52-9390-c16688b43fa5)
+  (property
+    "Reference"
+    "R101"
+    (at 342.9 46.69 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "10k 1% 0805"
+    (at 342.9 72.69 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "SlewnV13_UI:R1_R0805"
+    (at 342.9 59.69 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "R101")
+        (unit 1))))
+  (property
+    "MPN"
+    "RC0805FR-0710KL"
+    (at 342.9 59.69 0)
+    (effects
+      (font
+        (size 1 1))
+      hide)))
+(symbol
+  (lib_id "SlewnV13_UI:C1")
+  (at 57.15 144.78 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid 6929f9f0-f4bf-43a8-a074-1068a4257b79)
+  (property
+    "Reference"
+    "C101"
+    (at 57.15 131.78 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "10nF 50V X7R"
+    (at 57.15 157.78 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "SlewnV13_UI:C1_C0805"
+    (at 57.15 144.78 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "C101")
+        (unit 1))))
+  (property
+    "MPN"
+    "C0805C103K5RACTU"
+    (at 57.15 144.78 0)
+    (effects
+      (font
+        (size 1 1))
+      hide)))
+(symbol
+  (lib_id "SlewnV13_UI:R2")
+  (at 152.4 144.78 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid 5bd7e24a-7e5a-405c-b369-2b4b38f70fd2)
+  (property
+    "Reference"
+    "R102"
+    (at 152.4 131.78 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "10k 1% 0805"
+    (at 152.4 157.78 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "SlewnV13_UI:R2_R0805"
+    (at 152.4 144.78 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "R102")
+        (unit 1))))
+  (property
+    "MPN"
+    "RC0805FR-0710KL"
+    (at 152.4 144.78 0)
+    (effects
+      (font
+        (size 1 1))
+      hide)))
+(symbol
+  (lib_id "SlewnV13_UI:C2")
+  (at 247.65 144.78 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid 2bd5442f-8137-48e0-95a0-46178ac5170b)
+  (property
+    "Reference"
+    "C102"
+    (at 247.65 131.78 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "10nF 50V X7R"
+    (at 247.65 157.78 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "SlewnV13_UI:C2_C0805"
+    (at 247.65 144.78 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "C102")
+        (unit 1))))
+  (property
+    "MPN"
+    "C0805C103K5RACTU"
+    (at 247.65 144.78 0)
+    (effects
+      (font
+        (size 1 1))
+      hide)))
+(symbol
+  (lib_id "SlewnV13_UI:R3")
+  (at 342.9 144.78 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid 5e6f15f7-11a9-409f-ae31-1fea8b295d40)
+  (property
+    "Reference"
+    "R103"
+    (at 342.9 131.78 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "10k 1% 0805"
+    (at 342.9 157.78 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "SlewnV13_UI:R3_R0805"
+    (at 342.9 144.78 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "R103")
+        (unit 1))))
+  (property
+    "MPN"
+    "RC0805FR-0710KL"
+    (at 342.9 144.78 0)
+    (effects
+      (font
+        (size 1 1))
+      hide)))
+(symbol
+  (lib_id "SlewnV13_UI:C3")
+  (at 57.15 219.71 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid a8c3235a-d867-4ea5-b436-4ceae41b4717)
+  (property
+    "Reference"
+    "C103"
+    (at 57.15 206.71 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "10nF 50V X7R"
+    (at 57.15 232.71 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "SlewnV13_UI:C3_C0805"
+    (at 57.15 219.71 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "C103")
+        (unit 1))))
+  (property
+    "MPN"
+    "C0805C103K5RACTU"
+    (at 57.15 219.71 0)
+    (effects
+      (font
+        (size 1 1))
+      hide)))
+(symbol
+  (lib_id "SlewnV13_UI:R4")
+  (at 152.4 219.71 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid 023f1588-7b7e-4789-a7dc-f0e403796509)
+  (property
+    "Reference"
+    "R104"
+    (at 152.4 206.71 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "0R / 显示屏5V供电跳线，安装"
+    (at 152.4 232.71 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "SlewnV13_UI:R4_R0805"
+    (at 152.4 219.71 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "R104")
+        (unit 1))))
+  (property
+    "MPN"
+    "RC0805JR-070RL"
+    (at 152.4 219.71 0)
+    (effects
+      (font
+        (size 1 1))
+      hide)))
+(symbol
+  (lib_id "SlewnV13_UI:C4")
+  (at 247.65 219.71 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid 8f2bf376-9ecd-43b3-b922-f17919c06cd2)
+  (property
+    "Reference"
+    "C104"
+    (at 247.65 206.71 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "100nF 50V X7R"
+    (at 247.65 232.71 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "SlewnV13_UI:C4_C0805"
+    (at 247.65 219.71 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "C104")
+        (unit 1))))
+  (property
+    "MPN"
+    "C0805C104K5RACTU"
+    (at 247.65 219.71 0)
+    (effects
+      (font
+        (size 1 1))
+      hide)))
+(symbol
+  (lib_id "SlewnV13_UI:R5")
+  (at 342.9 219.71 0)
+  (unit 1)
+  (in_bom yes)
+  (on_board yes)
+  (dnp no)
+  (uuid a22d4f54-afc0-4cd2-a08e-8591345e9934)
+  (property
+    "Reference"
+    "R105"
+    (at 342.9 206.71 0)
+    (effects
+      (font
+        (size 1.5 1.5))))
+  (property
+    "Value"
+    "10k 1% / 背光默认关闭"
+    (at 342.9 232.71 0)
+    (effects
+      (font
+        (size 1 1))))
+  (property
+    "Footprint"
+    "SlewnV13_UI:R5_R0805"
+    (at 342.9 219.71 0)
+    (effects
+      (font
+        (size 1 1))
+      hide))
+  (instances
+    (project
+      "Slewn_V20_UI"
+      (path
+        "/b1ca5a2e-4c7b-4c72-8763-4df07fa74c02"
+        (reference "R105")
+        (unit 1))))
+  (property
+    "MPN"
+    "RC0805FR-0710KL"
+    (at 342.9 219.71 0)
+    (effects
+      (font
+        (size 1 1))
+      hide)))
+(text
+  "UI   /   J101 接 MAIN 的 J2，按 1 至 14 脚逐一对应。背面装直母座，开口朝箱内。"
+  (at 26 21 0)
+  (effects
+    (font
+      (size 2.2 2.2))
+    (justify left))
+  (uuid c9e5fc53-89e5-43ca-9e21-9bac5f8a73ba)))

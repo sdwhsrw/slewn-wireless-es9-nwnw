@@ -1,0 +1,13 @@
+# MCP servers for Codex (Claude Code reads .mcp.json). Keep the two files in sync by hand.
+
+[mcp_servers.kicad]
+command = "node"
+args = ["/opt/kicad-mcp/dist/index.js"]
+[mcp_servers.kicad.env]
+NODE_ENV = "production"
+LOG_LEVEL = "info"
+KICAD_AUTO_LAUNCH = "false"
+
+# Hosted parts search (JLCPCB/LCSC, Mouser, DigiKey) — https://github.com/Averyy/pcbparts-mcp
+[mcp_servers.pcbparts]
+url = "https://pcbparts.dev/mcp"

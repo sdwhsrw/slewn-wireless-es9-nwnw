@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "kicad": {
+      "command": "node",
+      "args": [
+        "/opt/kicad-mcp/dist/index.js"
+      ],
+      "env": {
+        "NODE_ENV": "production",
+        "LOG_LEVEL": "info",
+        "KICAD_AUTO_LAUNCH": "false"
+      }
+    },
+    "pcbparts": {
+      "type": "http",
+      "url": "https://pcbparts.dev/mcp"
+    }
+  }
+}

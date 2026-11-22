@@ -32,9 +32,14 @@ class UiLayoutTest(unittest.TestCase):
     def test_reduced_circuit(self):
         # the DIY complexity review: the old circuit minus the removed parts, with the nets they split merged;
         # every other part keeps its fields, footprint and net names
+        # and the order fields set on 2026-11-22
         expected = rename(netlist.reduce(self.old, ui_layout.REMOVED, ui_layout.MERGED), ui_layout.RENAMED)
+        for ref, fields in ui_layout.FIELDS.items():
+            expected.comps[ref].update(fields)
         self.assertEqual(netlist.diff(expected, self.new, renames={}), [])
-        self.assertEqual(netlist.footprint_changes(expected, self.new), {})
+        # 2026-11-22: only the 0805 R/C moved to KiCad's stock footprints
+        self.assertEqual(netlist.footprint_changes(expected, self.new),
+                         {r: (old, ui_layout.FOOTPRINT_MAP[r]) for r, old in ui_layout.OLD_FOOTPRINTS.items()})
         self.assertEqual(len(self.new.comps), 11)
 
     def test_spares_are_dnp(self):

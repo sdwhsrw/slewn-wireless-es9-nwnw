@@ -29,8 +29,17 @@ FIELDS = {
     "TP6": {"Value": "5V"},
     "Q1": {"Value": "AO4407C / -30V P-MOS", "MPN": "AO4407C", "Manufacturer": "Alpha & Omega Semiconductor",
            "LCSC": "C469397"},
-    "F1": {"Manufacturer": "Littelfuse", "LCSC": "C3105"},
+    # parts review 2026-11-22: 2.5 A leaves headroom for the Radxa at full load plus 1 A on J5
+    "F1": {"Value": "046802.5NRHF / 2.5 A fast", "MPN": "046802.5NRHF", "Manufacturer": "Littelfuse",
+           "LCSC": "C187612"},
     "J3": {"Manufacturer": "Würth Elektronik", "LCSC": "C4355000"},
+    # 2x20 male header: 3 mm into the Radxa, 6 mm down through MAIN, body on the 6 mm standoffs (V20 3D model)
+    "J1": {"MPN": "PZ254-2-20-Z-8.5", "Manufacturer": "HCTL", "LCSC": "C3012260"},
+    # the old Murata parts are NRND / end of life; both stay DNP
+    "C2": {"Value": "22uF 25V X7R 1210", "MPN": "CL32B226KAJNNNE", "Manufacturer": "Samsung Electro-Mechanics",
+           "LCSC": "C309062"},
+    "C4": {"Value": "10uF 50V X7R", "MPN": "UMK325AB7106KM-P", "Manufacturer": "Taiyo Yuden",
+           "LCSC": "C337485"},
 }
 # kept on the sheet as Do Not Populate: the U1 module already carries its input and output capacitors
 DNP = {"C4", "C2",
@@ -98,19 +107,21 @@ def block_buck(s: Sheet) -> None:
     testpoint(s, "TP6", 208.28, ROW1)
 
 
-# Radxa header pin -> net (approved 2026-11-21; the rest stay unconnected). J2 goes to the UI board pin for pin:
+# Radxa header pin -> net (approved 2026-11-21; the rest stay unconnected). The Radxa ties its 3V3 pins 1 and 17
+# together, so MAIN keeps them apart (2026-11-22): 3V3_1 from J1.1 feeds the UI board, 3V3 from J1.17 feeds J5.
+# J2 goes to the UI board pin for pin:
 # 1-8 in the display's own order, 9-14 the encoder. J4 brings out every other signal, one block per function;
 # J5 carries the power for J4 modules (split 2026-11-22 so J4 fits the right board edge and HDMI stays free).
 # J4 order (2026-11-22): groups I2S, I2C, SPI, UART, GPIO from the top; inside the groups and between them
 # the pins follow their x position on J1, so the J1 -> J4 traces fan out with few crossings.
-J1_NETS = {"1": "3V3", "2": "5V", "3": "UART3_RX", "4": "5V", "5": "UART3_TX", "7": "GPIO3_C4", "8": "UART2_TX",
+J1_NETS = {"1": "3V3_1", "2": "5V", "3": "UART3_RX", "4": "5V", "5": "UART3_TX", "7": "GPIO3_C4", "8": "UART2_TX",
            "10": "UART2_RX", "11": "GPIO3_A1", "12": "I2S_BCLK", "13": "I2S_MCLK", "15": "LCD_RST", "16": "LCD_DC",
            "17": "3V3", "18": "LCD_BL", "19": "SPI_MOSI", "21": "SPI_MISO", "22": "SPI_CS1", "23": "SPI_CLK",
            "24": "LCD_CS", "27": "I2C4_SDA", "28": "I2C4_SCL", "29": "I2C5_SCL", "31": "I2C5_SDA", "32": "ENC_A",
            "33": "ENC_B", "35": "I2S_LRCK", "36": "ENC_SW", "37": "GPIO1_A4", "38": "I2S_DIN", "40": "I2S_DOUT",
            **{p: "GND" for p in ("6", "9", "14", "20", "25", "30", "34", "39")}}
 J2_NETS = {"1": "GND", "2": "5V", "3": "SPI_CLK", "4": "SPI_MOSI", "5": "LCD_RST", "6": "LCD_DC", "7": "LCD_CS",
-           "8": "LCD_BL", "9": "GND", "10": "3V3", "11": "ENC_A", "12": "ENC_B", "13": "ENC_SW", "14": "GND"}
+           "8": "LCD_BL", "9": "GND", "10": "3V3_1", "11": "ENC_A", "12": "ENC_B", "13": "ENC_SW", "14": "GND"}
 J4_NETS = {"1": "I2S_DOUT", "2": "I2S_DIN", "3": "I2S_LRCK", "4": "I2S_MCLK", "5": "I2S_BCLK", "6": "GND",
            "7": "I2C5_SDA", "8": "I2C5_SCL", "9": "I2C4_SCL", "10": "I2C4_SDA", "11": "GND", "12": "GND",
            "13": "SPI_CLK", "14": "SPI_MISO", "15": "SPI_CS1", "16": "SPI_MOSI", "17": "GND", "18": "GND",

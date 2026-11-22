@@ -180,7 +180,7 @@ a { color: var(--lcd); }
       <li>SPI3_M1 ist der einzige SPI-Controller am Header. J4 teilt CLK, MOSI und MISO mit dem Display; das Gerät an J4 nutzt CS1 auf J1·22, im Device Tree als <code>cs-gpios</code>.</li>
       <li>J1·21 (MISO) ist belegt, solange der SPI3-Treiber läuft, auch wenn nur das Display dranhängt.</li>
       <li>I2S3_M0 ist das einzige vollständige I2S am Header und liegt komplett mit MCLK auf J4.</li>
-      <li>Strombudget an J5: 5V max. 1 A (vom MAIN-Buck). 3V3 kommt vom Radxa (J1·1 und J1·17) und reicht nur für kleine Lasten.</li>
+      <li>Strombudget an J5: 5V max. 1 A (vom MAIN-Buck). 3V3 kommt vom Radxa und reicht nur für kleine Lasten. J1·1 (3V3_1) versorgt das UI-Board, J1·17 (3V3) J5 und R2/R3; verbunden sind die beiden nur auf dem Radxa.</li>
       <li>UART2 (J4·19/20) ist die Boot-Konsole mit 1 500 000 Baud. Dort nur ein USB-UART-Kabel anschließen: Verkehr auf RX während des Bootens kann U-Boot anhalten.</li>
       <li>I2C4 (J4·9/10) hat auf dem Radxa schon Pull-ups. Für I2C5 nennt Radxa keine Pull-ups. Auf MAIN sind dafür R2 (SCL) und R3 (SDA) vorgesehen, 4,7 kΩ 0805 nach 3V3, standardmäßig nicht bestückt (DNP). Nur bestücken, wenn das Modul an J4 keine eigenen Pull-ups hat.</li>
       <li>Die UART3-Pins (J1·3/5) tragen auf dem Radxa I²C-Pull-ups. Für eine UART ist das unschädlich, da die Leitung im Ruhezustand ohnehin high ist.</li>
@@ -195,7 +195,7 @@ a { color: var(--lcd); }
 (() => {
   // [pin, radxa name, linux gpio, function used, net, group, destination]
   const J1 = [
-    [1, "+3.3V", "", "3V3-Ausgang", "3V3", "p3", "J2·10, J5·3/4"],
+    [1, "+3.3V", "", "3V3-Ausgang", "3V3_1", "p3", "J2·10 → UI (Display, Encoder)"],
     [2, "+5.0V", "", "5V-Eingang", "5V", "pwr", "MAIN-Buck, J2·2, J5·1/2"],
     [3, "GPIO1_A0", 32, "UART3_RX_M0", "UART3_RX", "uart", "J4·22"],
     [4, "+5.0V", "", "5V-Eingang", "5V", "pwr", "wie Pin 2"],
@@ -211,7 +211,7 @@ a { color: var(--lcd); }
     [14, "GND", "", "", "GND", "gnd", ""],
     [15, "GPIO3_B0", 104, "GPIO", "LCD_RST", "lcd", "J2·5 → J102·5 RES"],
     [16, "GPIO3_B1", 105, "GPIO", "LCD_DC", "lcd", "J2·6 → J102·6 DC"],
-    [17, "+3.3V", "", "3V3-Ausgang", "3V3", "p3", "wie Pin 1"],
+    [17, "+3.3V", "", "3V3-Ausgang", "3V3", "p3", "J5·3/4, R2/R3"],
     [18, "GPIO3_B2", 106, "PWM9_M0", "LCD_BL", "lcd", "J2·8 → J102·8 BLK"],
     [19, "GPIO4_C3", 147, "SPI3_MOSI_M1", "SPI_MOSI", "lcd", "J2·4 → J102·4, J4·16"],
     [20, "GND", "", "", "GND", "gnd", ""],
@@ -240,7 +240,7 @@ a { color: var(--lcd); }
     ["Display J102", [[1, "GND", "", "J102·1 GND"], [2, "5V", "2/4", "J102·2 VDD"], [3, "SPI_CLK", "23", "J102·3 SCL"],
       [4, "SPI_MOSI", "19", "J102·4 SDA"], [5, "LCD_RST", "15", "J102·5 RES"], [6, "LCD_DC", "16", "J102·6 DC"],
       [7, "LCD_CS", "24", "J102·7 CS"], [8, "LCD_BL", "18", "J102·8 BL (R104 DNP)"]]],
-    ["Encoder ENC101", [[9, "GND", "", "Masse"], [10, "3V3", "1/17", "Pull-ups R101–R103"], [11, "ENC_A", "32", "ENC101 A"],
+    ["Encoder ENC101", [[9, "GND", "", "Masse"], [10, "3V3_1", "1", "Pull-ups R101–R103"], [11, "ENC_A", "32", "ENC101 A"],
       [12, "ENC_B", "33", "ENC101 B"], [13, "ENC_SW", "36", "ENC101 SW"], [14, "GND", "", "ENC101 C"]]]
   ];
   const J4 = ["I2S_DOUT", "I2S_DIN", "I2S_LRCK", "I2S_MCLK", "I2S_BCLK", "GND",

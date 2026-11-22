@@ -31,10 +31,12 @@ FOOTPRINT_MAP: dict[str, str] = {
     "J101": "Kinghelm:KH-2.54FH-1X14P-H8.5",
     "J102": "SlewnV13_UI:J2_TFT8",
     "ENC101": "SlewnV13_UI:ENC1_ENCODER",
-    **{f"R10{i}": f"SlewnV13_UI:R{i}_R0805" for i in range(1, 4)},
-    "R104": "SlewnV13_UI:R5_R0805",      # the old R105's footprint, renumbered below
-    **{f"C10{i}": f"SlewnV13_UI:C{i}_C0805" for i in range(1, 5)},
+    # 2026-11-22: KiCad's stock 0805 footprints replace the project-local copies (same size and place)
+    **{r: "Resistor_SMD:R_0805_2012Metric" for r in ("R101", "R102", "R103", "R104")},
+    **{c: "Capacitor_SMD:C_0805_2012Metric" for c in ("C101", "C102", "C103", "C104")},
 }
+OLD_FOOTPRINTS = {**{f"R10{i}": f"SlewnV13_UI:R{i}_R0805" for i in range(1, 4)}, "R104": "SlewnV13_UI:R5_R0805",
+                  **{f"C10{i}": f"SlewnV13_UI:C{i}_C0805" for i in range(1, 5)}}
 
 # J101 pin -> net: the order agreed on 2026-11-21, equal to MAIN J2 with the UI_ prefix
 J101_NETS = {"1": "GND", "2": "5V", "3": "SPI_CLK", "4": "SPI_MOSI", "5": "LCD_RST", "6": "LCD_DC", "7": "LCD_CS",
@@ -53,6 +55,19 @@ RENAMED = {"R105": "R104"}
 # kept on the sheet as Do Not Populate: the TB147 module carries its own LDO and capacitors (C104); the RK3566
 # holds LCD_BL (GPIO3_B2) low from reset with its internal pull-down (R104); ENC_SW is debounced in software (C103)
 DNP = {"C104", "R104", "C103"}
+
+# order numbers (2026-11-22): R/C moved to JLCPCB basic parts (no feeder fee, deep stock); the KEMET 10 nF
+# C0805C103K5RACTU had left JLCPCB's stock. Same values, 0805, X7R 50 V.
+_R10K = {"MPN": "0805W8F1002T5E", "Manufacturer": "UNI-ROYAL", "LCSC": "C17414"}
+_C10N = {"MPN": "CL21B103KBANNNC", "Manufacturer": "Samsung Electro-Mechanics", "LCSC": "C1710"}
+FIELDS: dict[str, dict[str, str]] = {
+    **{r: _R10K for r in ("R101", "R102", "R103", "R104")},
+    **{c: _C10N for c in ("C101", "C102", "C103")},
+    "C104": {"MPN": "CC0805KRX7R9BB104", "Manufacturer": "YAGEO", "LCSC": "C49678"},
+    "ENC101": {"MPN": "PEC11R-4225F-S0024", "Manufacturer": "Bourns", "LCSC": "C18198884"},
+    "J101": {"MPN": "KH-2.54FH-1X14P-H8.5", "Manufacturer": "Kinghelm", "LCSC": "C2905420"},
+    "J102": {"MPN": "TSW-108-07-G-S", "Manufacturer": "Samtec", "LCSC": "C3335496"},
+}
 
 
 def net(name: str) -> str:
@@ -160,6 +175,10 @@ def make_sheet(blocks: list[str] | None = None) -> Sheet:
         # the old sheet left out the fields KiCad 10 always writes
         for name in ("Datasheet", "Description"):
             old["props"].setdefault(name, ("", True))
+    for ref, fields in FIELDS.items():
+        props = s.old[ref]["props"]
+        for name, value in fields.items():
+            props[name] = (value, props[name][1] if name in props else True)
     for item in s.title_block[1:]:
         if item[0] == "date":
             item[1] = Q("2026-11-21")

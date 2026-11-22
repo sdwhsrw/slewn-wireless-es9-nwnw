@@ -17,7 +17,8 @@ OUT = ROOT / "out" / "main_sch"
 HEADERS = {"J1", "J2", "J4", "J5"}
 HEADER_SPEC = {
     "5V": {("J1", "2"), ("J1", "4"), ("J2", "2"), ("J5", "1"), ("J5", "2")},
-    "3V3": {("J1", "1"), ("J1", "17"), ("J2", "10"), ("J5", "3"), ("J5", "4")},
+    "3V3": {("J1", "17"), ("J5", "3"), ("J5", "4")},
+    "3V3_1": {("J1", "1"), ("J2", "10")},          # tied to 3V3 on the Radxa, not on MAIN
     "SPI_CLK": {("J1", "23"), ("J2", "3"), ("J4", "13")},
     "SPI_MOSI": {("J1", "19"), ("J2", "4"), ("J4", "16")},
     "SPI_MISO": {("J1", "21"), ("J4", "14")},
@@ -107,7 +108,9 @@ class LayoutTest(unittest.TestCase):
         comps = netlist.load(netlist.export(sch, sch.with_suffix(".net"))).comps
         self.assertEqual((comps["Q1"]["MPN"], comps["Q1"]["LCSC"]), ("AO4407C", "C469397"))
         self.assertTrue(comps["Q1"]["value"].startswith("AO4407C"))
-        self.assertEqual((comps["F1"]["MPN"], comps["F1"]["LCSC"]), ("0466002.NRHF", "C3105"))
+        self.assertEqual((comps["F1"]["MPN"], comps["F1"]["LCSC"]), ("046802.5NRHF", "C187612"))
+        self.assertEqual((comps["J1"]["MPN"], comps["J1"]["LCSC"]), ("PZ254-2-20-Z-8.5", "C3012260"))
+        self.assertEqual((comps["C2"]["LCSC"], comps["C4"]["LCSC"]), ("C309062", "C337485"))
         self.assertEqual((comps["J4"]["MPN"], comps["J4"]["LCSC"]), ("PZ254-2-14-Z-8.5", "C2894975"))
         self.assertEqual(comps["J4"]["footprint"], "Connector_PinHeader_2.54mm:PinHeader_2x14_P2.54mm_Vertical")
         self.assertEqual((comps["J5"]["MPN"], comps["J5"]["LCSC"]), ("PZ254-2-03-Z-8.5", "C2894964"))

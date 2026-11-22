@@ -33,7 +33,7 @@ _DSMA = "Diode_SMD:D_SMA"
 _RVC = "Package_DFN_QFN:Texas_RVC0020A_WQFN-20-1EP_3x4mm_P0.5mm_EP1.6x2.6mm"
 
 # parts added after the redraw; they have no footprint in the old sheet to compare against
-NEW_PARTS = {"J4", "R2", "R3"}
+NEW_PARTS = {"J4", "J5", "R2", "R3"}
 
 FOOTPRINT_MAP: dict[str, str] = {
     **{f"TP{i}": _TP for i in range(1, 8)},
@@ -45,7 +45,8 @@ FOOTPRINT_MAP: dict[str, str] = {
     "R18": "Resistor_SMD:R_1206_3216Metric",
     "R20": "Resistor_SMD:R_2512_6332Metric",
     "U2": _RVC, "U3": _RVC,
-    "J4": "Connector_PinHeader_2.54mm:PinHeader_2x17_P2.54mm_Vertical",
+    "J4": "Connector_PinHeader_2.54mm:PinHeader_2x14_P2.54mm_Vertical",
+    "J5": "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical",
     "R2": _R0805, "R3": _R0805,
     **_STOCK_FP,
 }
@@ -79,7 +80,8 @@ SYMBOL_MAP: dict[str, str] = {
     "J1": "Connector_Generic:Conn_02x20_Odd_Even",
     "J2": "Connector_Generic:Conn_01x14",
     "J3": "Connector_Generic:Conn_02x05_Odd_Even",
-    "J4": "Connector_Generic:Conn_02x17_Odd_Even",
+    "J4": "Connector_Generic:Conn_02x14_Odd_Even",
+    "J5": "Connector_Generic:Conn_02x03_Odd_Even",
 }
 
 _lib_cache: dict[Path, list] = {}

@@ -99,7 +99,10 @@ def block_buck(s: Sheet) -> None:
 
 
 # Radxa header pin -> net (approved 2026-11-21; the rest stay unconnected). J2 goes to the UI board pin for pin:
-# 1-8 in the display's own order, 9-14 the encoder. J4 brings out everything else, one block per function.
+# 1-8 in the display's own order, 9-14 the encoder. J4 brings out every other signal, one block per function;
+# J5 carries the power for J4 modules (split 2026-11-22 so J4 fits the right board edge and HDMI stays free).
+# J4 order (2026-11-22): groups I2S, I2C, SPI, UART, GPIO from the top; inside the groups and between them
+# the pins follow their x position on J1, so the J1 -> J4 traces fan out with few crossings.
 J1_NETS = {"1": "3V3", "2": "5V", "3": "UART3_RX", "4": "5V", "5": "UART3_TX", "7": "GPIO3_C4", "8": "UART2_TX",
            "10": "UART2_RX", "11": "GPIO3_A1", "12": "I2S_BCLK", "13": "I2S_MCLK", "15": "LCD_RST", "16": "LCD_DC",
            "17": "3V3", "18": "LCD_BL", "19": "SPI_MOSI", "21": "SPI_MISO", "22": "SPI_CS1", "23": "SPI_CLK",
@@ -108,12 +111,12 @@ J1_NETS = {"1": "3V3", "2": "5V", "3": "UART3_RX", "4": "5V", "5": "UART3_TX", "
            **{p: "GND" for p in ("6", "9", "14", "20", "25", "30", "34", "39")}}
 J2_NETS = {"1": "GND", "2": "5V", "3": "SPI_CLK", "4": "SPI_MOSI", "5": "LCD_RST", "6": "LCD_DC", "7": "LCD_CS",
            "8": "LCD_BL", "9": "GND", "10": "3V3", "11": "ENC_A", "12": "ENC_B", "13": "ENC_SW", "14": "GND"}
-J4_NETS = {"1": "5V", "2": "5V", "3": "3V3", "4": "3V3", "5": "GND", "6": "GND",
-           "7": "I2S_MCLK", "8": "I2S_BCLK", "9": "I2S_LRCK", "10": "I2S_DOUT", "11": "I2S_DIN", "12": "GND",
-           "13": "SPI_CLK", "14": "SPI_MOSI", "15": "SPI_MISO", "16": "SPI_CS1", "17": "GND", "18": "GND",
-           "19": "I2C5_SCL", "20": "I2C5_SDA", "21": "I2C4_SCL", "22": "I2C4_SDA", "23": "GND", "24": "GND",
-           "25": "UART2_TX", "26": "UART2_RX", "27": "UART3_TX", "28": "UART3_RX", "29": "GND", "30": "GND",
-           "31": "GPIO3_C4", "32": "GPIO3_A1", "33": "GPIO1_A4", "34": "GND"}
+J4_NETS = {"1": "I2S_DOUT", "2": "I2S_DIN", "3": "I2S_LRCK", "4": "I2S_MCLK", "5": "I2S_BCLK", "6": "GND",
+           "7": "I2C5_SDA", "8": "I2C5_SCL", "9": "I2C4_SCL", "10": "I2C4_SDA", "11": "GND", "12": "GND",
+           "13": "SPI_CLK", "14": "SPI_MISO", "15": "SPI_CS1", "16": "SPI_MOSI", "17": "GND", "18": "GND",
+           "19": "UART2_RX", "20": "UART2_TX", "21": "UART3_TX", "22": "UART3_RX", "23": "GND", "24": "GND",
+           "25": "GPIO1_A4", "26": "GPIO3_A1", "27": "GPIO3_C4", "28": "GND"}
+J5_NETS = {"1": "5V", "2": "5V", "3": "3V3", "4": "3V3", "5": "GND", "6": "GND"}
 
 
 def _header_pin(s: Sheet, ref: str, pin: str, net: str | None, side: int) -> None:
@@ -161,13 +164,16 @@ def i2c5_pullups(s: Sheet) -> None:
 
 
 def block_expansion(s: Sheet) -> None:
-    s.box("4  EXPANSION  J4", 220.98, 17.78, 284.48, 88.9)
-    s.place("J4", 252.73, 45.72, fields=(231.14, 71.12))
-    for n in range(1, 35):
+    s.box("4  EXPANSION  J4 + POWER  J5", 220.98, 17.78, 284.48, 95.25)
+    s.place("J4", 252.73, 40.64, fields=(231.14, 60.96))
+    for n in range(1, 29):
         _header_pin(s, "J4", str(n), J4_NETS[str(n)], -1 if n % 2 else 1)
-    s.note("SPI: same bus as the display, CS1 on J1 22.", (223.52, 77.47), size=1.27)
-    s.note("UART2 is the boot console, 1 500 000 baud.", (223.52, 81.28), size=1.27)
-    s.note("Budget: 5V max 1 A, 3V3 (Radxa) small loads.", (223.52, 85.09), size=1.27)
+    s.place("J5", 252.73, 71.12, fields="below")
+    for n in range(1, 7):
+        _header_pin(s, "J5", str(n), J5_NETS[str(n)], -1 if n % 2 else 1)
+    s.note("SPI: same bus as the display, CS1 on J1 22.", (223.52, 85.09), size=1.27)
+    s.note("UART2 is the boot console, 1 500 000 baud.", (223.52, 88.9), size=1.27)
+    s.note("J5 budget: 5V max 1 A, 3V3 (Radxa) small loads.", (223.52, 92.71), size=1.27)
 
 
 BUILD_NOTES = [
@@ -205,10 +211,12 @@ BLOCKS = {
 
 def make_sheet(blocks: list[str] | None = None) -> Sheet:
     s = Sheet(OLD_SCH, paper="A4")
-    s.add_part("J4", "PinHeader 2x17 2.54 / expansion",
+    s.add_part("J4", "PinHeader 2x14 2.54 / expansion",
                "Radxa expansion: I2S3_M0, SPI3 with CS1, I2C5, I2C4, UART2 (debug), UART3, spare GPIO")
-    for name, value in (("MPN", "PZ254-2-17-Z-8.5"), ("Manufacturer", "HCTL"), ("LCSC", "C2894978")):
-        s.old["J4"]["props"][name] = (value, True)
+    s.add_part("J5", "PinHeader 2x03 2.54", "Power for J4 modules: 5V, 3V3, GND")
+    for ref, mpn, lcsc in (("J4", "PZ254-2-14-Z-8.5", "C2894975"), ("J5", "PZ254-2-03-Z-8.5", "C2894964")):
+        for name, value in (("MPN", mpn), ("Manufacturer", "HCTL"), ("LCSC", lcsc)):
+            s.old[ref]["props"][name] = (value, True)
     for ref, net in (("R2", "SCL"), ("R3", "SDA")):
         s.add_part(ref, "4.7k 1% 0805", f"Optional I2C5 {net} pull-up to 3V3 (DNP)")
         for name, value in (("MPN", "0805W8F4701T5E"), ("Manufacturer", "UNI-ROYAL"), ("LCSC", "C17673")):
@@ -219,7 +227,7 @@ def make_sheet(blocks: list[str] | None = None) -> Sheet:
             props[name] = (value, props[name][1] if name in props else True)
     for item in s.title_block[1:]:
         if item[0] == "date":
-            item[1] = Q("2026-11-21")
+            item[1] = Q("2026-11-22")
         if item[:2] == ["comment", "2"]:
             item[2] = Q("MAIN / UI connector pins mate 1:1; check 5 V before fitting the Radxa.")
     for name in blocks or list(BLOCKS):

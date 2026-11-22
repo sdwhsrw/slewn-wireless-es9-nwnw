@@ -7,8 +7,10 @@ Rules from the human (2026-11-21):
   4. All tracks and vias are removed.
   5. Every other part is placed off the board, grouped by function.
 
-Usage: python3 scripts/main_pcb/sync_from_sch.py <in.kicad_pcb> <netlist.net> <out.kicad_pcb>
+Usage: python3 scripts/main_pcb/sync_from_sch.py <in.kicad_pcb> <netlist.net> <out.kicad_pcb> [--keep-placed]
 The netlist comes from `kicad-cli sch export netlist --format kicadsexpr`.
+--keep-placed: a part whose footprint did not change keeps its place (nets and fields still follow the
+schematic); only new or changed footprints are parked. Without it every part except J1-J3 is parked.
 """
 import os
 import sys
@@ -20,7 +22,7 @@ FIXED = ("J1", "J2", "J3")
 # Off-board placement: rows of groups below the board, left to right.
 GROUPS = [
     [("Rack power", ["F1", "Q1", "TP7"]), ("5 V buck", ["U1", "C4", "C2", "TP6"]), ("I2C5 pull-ups", ["R2", "R3"])],
-    [("Expansion", ["J4"])],
+    [("Expansion", ["J4", "J5"])],
 ]
 ORIGIN = (43.0, 115.0)   # top left of the parking area, mm (board ends at y 108)
 GAP, GROUP_GAP, ROW_GAP = 3.0, 10.0, 8.0
@@ -162,6 +164,8 @@ def park(board, fps):
         x, row_h = ORIGIN[0], 0.0
         for _, refs in row:
             for ref in refs:
+                if ref not in fps:
+                    continue
                 fp = fps[ref]
                 fp.SetOrientationDegrees(0)
                 fp.SetPosition(pcbnew.VECTOR2I_MM(0, 0))
@@ -175,7 +179,7 @@ def park(board, fps):
         y += row_h + ROW_GAP
 
 
-def main(pcb_in, net_in, pcb_out):
+def main(pcb_in, net_in, pcb_out, keep_placed=False):
     board = pcbnew.LoadBoard(pcb_in)
     comps = read_netlist(net_in)
     by_ref = {fp.GetReference(): fp for fp in board.Footprints()}
@@ -185,7 +189,10 @@ def main(pcb_in, net_in, pcb_out):
     # Load every library footprint before removing anything: after board.Remove() the SWIG bindings
     # stop resolving new objects (KiCad 10.0.8).
     dirs = lib_dirs(os.path.dirname(os.path.abspath(pcb_in)))
-    fresh = {ref: load_footprint(comp["footprint"], dirs) for ref, comp in comps.items() if ref not in FIXED}
+    kept = {ref for ref, comp in comps.items() if keep_placed and ref not in FIXED and ref in by_ref
+            and by_ref[ref].GetFPIDAsString() == comp["footprint"]}
+    fresh = {ref: load_footprint(comp["footprint"], dirs) for ref, comp in comps.items()
+             if ref not in FIXED and ref not in kept}
 
     tracks = list(board.GetTracks())
     n_tracks = len(tracks)
@@ -196,16 +203,17 @@ def main(pcb_in, net_in, pcb_out):
 
     cache, fps = {}, {}
     for ref, comp in sorted(comps.items()):
-        fp = by_ref[ref] if ref in FIXED else fresh[ref]
-        if ref not in FIXED:
+        fp = by_ref[ref] if ref in FIXED or ref in kept else fresh[ref]
+        if ref in fresh:
             board.Add(fp)
+        if ref not in FIXED:
             fp.SetDNP("dnp" in comp["flags"])
             fp.SetExcludedFromBOM("exclude_from_bom" in comp["flags"])
         if ref not in FIXED:   # J1-J3: only the pad nets follow the schematic
             set_symbol_data(fp, ref, comp)
         apply_netlist(board, fp, comp, cache)
         fps[ref] = fp
-    park(board, fps)
+    park(board, {r: f for r, f in fps.items() if r in fresh})
 
     for zone in board.Zones():
         zone.UnFill()
@@ -223,4 +231,4 @@ def main(pcb_in, net_in, pcb_out):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:4])
+    main(*sys.argv[1:4], keep_placed="--keep-placed" in sys.argv[4:])

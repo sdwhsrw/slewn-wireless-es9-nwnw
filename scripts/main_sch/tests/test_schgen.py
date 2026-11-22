@@ -98,7 +98,7 @@ class SchGenTest(unittest.TestCase):
         sch = write_project(s, "t_new")
         new = netlist.load(netlist.export(sch, sch.with_suffix(".net")))
         self.assertEqual(new.comps["J4"]["value"], "Expansion 2x12")
-        self.assertEqual(new.comps["J4"]["footprint"], "Connector_PinHeader_2.54mm:PinHeader_2x17_P2.54mm_Vertical")
+        self.assertEqual(new.comps["J4"]["footprint"], "Connector_PinHeader_2.54mm:PinHeader_2x14_P2.54mm_Vertical")
 
     def test_rejects_diagonal_wire(self):
         s = schgen.Sheet(OLD_SCH)

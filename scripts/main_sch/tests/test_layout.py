@@ -14,14 +14,14 @@ from parts import FOOTPRINT_MAP, NEW_PARTS  # noqa: E402
 OLD_SCH = ROOT / "old" / "main-backup-2026-11-20" / "Slewn_V20_MAIN.kicad_sch"
 OUT = ROOT / "out" / "main_sch"
 
-HEADERS = {"J1", "J2", "J4"}
+HEADERS = {"J1", "J2", "J4", "J5"}
 HEADER_SPEC = {
-    "5V": {("J1", "2"), ("J1", "4"), ("J2", "2"), ("J4", "1"), ("J4", "2")},
-    "3V3": {("J1", "1"), ("J1", "17"), ("J2", "10"), ("J4", "3"), ("J4", "4")},
+    "5V": {("J1", "2"), ("J1", "4"), ("J2", "2"), ("J5", "1"), ("J5", "2")},
+    "3V3": {("J1", "1"), ("J1", "17"), ("J2", "10"), ("J5", "3"), ("J5", "4")},
     "SPI_CLK": {("J1", "23"), ("J2", "3"), ("J4", "13")},
-    "SPI_MOSI": {("J1", "19"), ("J2", "4"), ("J4", "14")},
-    "SPI_MISO": {("J1", "21"), ("J4", "15")},
-    "SPI_CS1": {("J1", "22"), ("J4", "16")},
+    "SPI_MOSI": {("J1", "19"), ("J2", "4"), ("J4", "16")},
+    "SPI_MISO": {("J1", "21"), ("J4", "14")},
+    "SPI_CS1": {("J1", "22"), ("J4", "15")},
     "LCD_RST": {("J1", "15"), ("J2", "5")},
     "LCD_DC": {("J1", "16"), ("J2", "6")},
     "LCD_CS": {("J1", "24"), ("J2", "7")},
@@ -29,22 +29,22 @@ HEADER_SPEC = {
     "ENC_A": {("J1", "32"), ("J2", "11")},
     "ENC_B": {("J1", "33"), ("J2", "12")},
     "ENC_SW": {("J1", "36"), ("J2", "13")},
-    "I2S_MCLK": {("J1", "13"), ("J4", "7")},
-    "I2S_BCLK": {("J1", "12"), ("J4", "8")},
-    "I2S_LRCK": {("J1", "35"), ("J4", "9")},
-    "I2S_DOUT": {("J1", "40"), ("J4", "10")},
-    "I2S_DIN": {("J1", "38"), ("J4", "11")},
-    "I2C5_SCL": {("J1", "29"), ("J4", "19")},
-    "I2C5_SDA": {("J1", "31"), ("J4", "20")},
-    "GPIO3_C4": {("J1", "7"), ("J4", "31")},
-    "GPIO3_A1": {("J1", "11"), ("J4", "32")},
-    "GPIO1_A4": {("J1", "37"), ("J4", "33")},
-    "I2C4_SCL": {("J1", "28"), ("J4", "21")},
-    "I2C4_SDA": {("J1", "27"), ("J4", "22")},
-    "UART2_TX": {("J1", "8"), ("J4", "25")},
-    "UART2_RX": {("J1", "10"), ("J4", "26")},
-    "UART3_TX": {("J1", "5"), ("J4", "27")},
-    "UART3_RX": {("J1", "3"), ("J4", "28")},
+    "I2S_MCLK": {("J1", "13"), ("J4", "4")},
+    "I2S_BCLK": {("J1", "12"), ("J4", "5")},
+    "I2S_LRCK": {("J1", "35"), ("J4", "3")},
+    "I2S_DOUT": {("J1", "40"), ("J4", "1")},
+    "I2S_DIN": {("J1", "38"), ("J4", "2")},
+    "I2C5_SCL": {("J1", "29"), ("J4", "8")},
+    "I2C5_SDA": {("J1", "31"), ("J4", "7")},
+    "GPIO3_C4": {("J1", "7"), ("J4", "27")},
+    "GPIO3_A1": {("J1", "11"), ("J4", "26")},
+    "GPIO1_A4": {("J1", "37"), ("J4", "25")},
+    "I2C4_SCL": {("J1", "28"), ("J4", "9")},
+    "I2C4_SDA": {("J1", "27"), ("J4", "10")},
+    "UART2_TX": {("J1", "8"), ("J4", "20")},
+    "UART2_RX": {("J1", "10"), ("J4", "19")},
+    "UART3_TX": {("J1", "5"), ("J4", "21")},
+    "UART3_RX": {("J1", "3"), ("J4", "22")},
 }
 
 
@@ -74,14 +74,15 @@ class LayoutTest(unittest.TestCase):
                 expected.comps[ref]["value" if name == "Value" else name] = value
         a, b = without_pins(expected, HEADERS | NEW_PARTS), without_pins(new, HEADERS | NEW_PARTS)
         self.assertEqual(netlist.diff(a, b), [])
-        self.assertEqual(len(new.comps), 13)
+        self.assertEqual(len(new.comps), 14)   # 13 + J5 (J4 split, 2026-11-22)
         changed = {r for r, fp in FOOTPRINT_MAP.items() if r in self.old.comps and r in new.comps
                    and fp != self.old.comps[r]["footprint"]}
         self.assertEqual(set(netlist.footprint_changes(self.old, new)), changed)
 
     def test_header_pinout(self):
-        # approved 2026-11-21: J2 1-8 in display order, 9-14 encoder; J4 (2x17) brings out complete I2S3_M0, the
-        # shared SPI bus, I2C5, I2C4, UART2 (debug console), UART3 and spare GPIO; only J1 26 (NC) stays unconnected
+        # approved 2026-11-21: J2 1-8 in display order, 9-14 encoder; J4 brings out complete I2S3_M0, the shared SPI
+        # bus, I2C5, I2C4, UART2 (debug console), UART3 and spare GPIO; only J1 26 (NC) stays unconnected.
+        # 2026-11-22: J4 split into J4 (2x14 signals) and J5 (2x3 power); J4 reordered to follow J1
         sch = layout.build(OUT / "full" / "Slewn_V20_MAIN.kicad_sch")
         new = netlist.load(netlist.export(sch, sch.with_suffix(".net")))
         got = {}
@@ -93,8 +94,8 @@ class LayoutTest(unittest.TestCase):
         for net, pins in HEADER_SPEC.items():
             for p in pins:
                 want[p] = net
-        for p in [("J1", str(n)) for n in (6, 9, 14, 20, 25, 30, 34, 39)] + [("J4", str(n)) for n in (5, 6, 12, 17, 18, 23, 24, 29, 30, 34)] \
-                + [("J2", str(n)) for n in (1, 9, 14)]:
+        for p in [("J1", str(n)) for n in (6, 9, 14, 20, 25, 30, 34, 39)] + [("J4", str(n)) for n in (6, 11, 12, 17, 18, 23, 24, 28)] \
+                + [("J2", str(n)) for n in (1, 9, 14)] + [("J5", "5"), ("J5", "6")]:
             want[p] = "GND"
         self.assertEqual({p: n for p, n in got.items() if not n.startswith("unconnected-")}, want)
         free = {p for p, n in got.items() if n.startswith("unconnected-")}
@@ -107,8 +108,10 @@ class LayoutTest(unittest.TestCase):
         self.assertEqual((comps["Q1"]["MPN"], comps["Q1"]["LCSC"]), ("AO4407C", "C469397"))
         self.assertTrue(comps["Q1"]["value"].startswith("AO4407C"))
         self.assertEqual((comps["F1"]["MPN"], comps["F1"]["LCSC"]), ("0466002.NRHF", "C3105"))
-        self.assertEqual((comps["J4"]["MPN"], comps["J4"]["LCSC"]), ("PZ254-2-17-Z-8.5", "C2894978"))
-        self.assertEqual(comps["J4"]["footprint"], "Connector_PinHeader_2.54mm:PinHeader_2x17_P2.54mm_Vertical")
+        self.assertEqual((comps["J4"]["MPN"], comps["J4"]["LCSC"]), ("PZ254-2-14-Z-8.5", "C2894975"))
+        self.assertEqual(comps["J4"]["footprint"], "Connector_PinHeader_2.54mm:PinHeader_2x14_P2.54mm_Vertical")
+        self.assertEqual((comps["J5"]["MPN"], comps["J5"]["LCSC"]), ("PZ254-2-03-Z-8.5", "C2894964"))
+        self.assertEqual(comps["J5"]["footprint"], "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical")
 
     def test_i2c5_pullups(self):
         # 2026-11-21: optional 4.7k pull-ups for I2C5 (no pull-ups on the Radxa there), not fitted by default

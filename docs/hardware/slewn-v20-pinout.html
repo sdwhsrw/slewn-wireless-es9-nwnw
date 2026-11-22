@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: reference sheet. Header drawing of J1 beside the full 40-pin table, then J2/J101 and J4 tables, then notes. */
+/* Layout: reference sheet. Header drawing of J1 beside the full 40-pin table, then J2/J101, J4 and J5 tables, then notes. */
 :root {
   color-scheme: light;
   --bg: #f4f6f3;
@@ -106,7 +106,7 @@ a { color: var(--lcd); }
 <main>
   <header>
     <h1>Slewn V20 Pinbelegung</h1>
-    <p class="lead">Radxa ZERO 3W auf J1 der MAIN-Platine, die Verbindung zur UI-Platine (J2 = J101) und der Erweiterungsstecker J4. Stand der Schaltpläne vom 21.11.2026.</p>
+    <p class="lead">Radxa ZERO 3W auf J1 der MAIN-Platine, die Verbindung zur UI-Platine (J2 = J101) die Erweiterungsstecker J4 (Signale) und J5 (Versorgung). Stand der Schaltpläne vom 22.11.2026.</p>
     <div class="meta">
       <span>Quelle <b>hw/main/Slewn_V20_MAIN.kicad_sch</b>, <b>hw/ui/Slewn_V20_UI.kicad_sch</b></span>
       <span>PCB <b>noch nicht synchronisiert</b></span>
@@ -152,12 +152,24 @@ a { color: var(--lcd); }
 
   <section class="sec">
     <h2>J4 · Erweiterung</h2>
-    <p class="lead">2×17 Stiftleiste, 2,54 mm, gerade (HCTL PZ254-2-17-Z-8.5, LCSC C2894978). Versorgung oben, dann I2S, SPI, I2C5/I2C4, UART2/UART3 und GPIO, jeweils durch GND getrennt. Damit liegt jeder Radxa-Pin, den MAIN nicht selbst braucht, auf J4; nur J1·26 (NC) bleibt frei.</p>
+    <p class="lead">2×14 Stiftleiste, 2,54 mm, gerade (HCTL PZ254-2-14-Z-8.5, LCSC C2894975), stehend am rechten Platinenrand. I2S, I2C5/I2C4, SPI, UART2/UART3 und GPIO, jeweils durch GND getrennt; die Reihenfolge folgt der Lage der Pins auf J1, damit sich die Leitungen kaum kreuzen. Damit liegt jeder Radxa-Signalpin, den MAIN nicht selbst braucht, auf J4; nur J1·26 (NC) bleibt frei. Die Versorgung dazu liegt auf J5.</p>
     <div class="split">
-      <div class="draw" aria-label="J4 Zeichnung"><div class="cap"><span>ungerade</span><span>J4 · 2×17 · Pin 1 oben links</span><span>gerade</span></div><div class="dual" id="j4-draw"></div></div>
+      <div class="draw" aria-label="J4 Zeichnung"><div class="cap"><span>ungerade</span><span>J4 · 2×14 · Pin 1 oben links</span><span>gerade</span></div><div class="dual" id="j4-draw"></div></div>
       <div class="tablewrap"><table>
         <thead><tr><th>Pin</th><th>Netz</th><th>J1</th><th>Pin</th><th>Netz</th><th>J1</th></tr></thead>
         <tbody id="j4"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>J5 · Versorgung für J4</h2>
+    <p class="lead">2×3 Stiftleiste, 2,54 mm, gerade (HCTL PZ254-2-03-Z-8.5, LCSC C2894964), im hinteren Streifen zwischen USB-C-Stecker und Micro-HDMI des Radxa. Seit 22.11.2026 getrennt von J4, damit J4 an den rechten Rand passt und der HDMI-Ausgang frei bleibt.</p>
+    <div class="split">
+      <div class="draw" aria-label="J5 Zeichnung"><div class="cap"><span>ungerade</span><span>J5 · 2×3 · Pin 1 oben links</span><span>gerade</span></div><div class="dual" id="j5-draw"></div></div>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Pin</th><th>Netz</th><th>J1</th><th>Pin</th><th>Netz</th><th>J1</th></tr></thead>
+        <tbody id="j5"></tbody>
       </table></div>
     </div>
   </section>
@@ -168,9 +180,9 @@ a { color: var(--lcd); }
       <li>SPI3_M1 ist der einzige SPI-Controller am Header. J4 teilt CLK, MOSI und MISO mit dem Display; das Gerät an J4 nutzt CS1 auf J1·22, im Device Tree als <code>cs-gpios</code>.</li>
       <li>J1·21 (MISO) ist belegt, solange der SPI3-Treiber läuft, auch wenn nur das Display dranhängt.</li>
       <li>I2S3_M0 ist das einzige vollständige I2S am Header und liegt komplett mit MCLK auf J4.</li>
-      <li>Strombudget an J4: 5V max. 1 A (vom MAIN-Buck). 3V3 kommt vom Radxa (J1·1 und J1·17) und reicht nur für kleine Lasten.</li>
-      <li>UART2 (J4·25/26) ist die Boot-Konsole mit 1 500 000 Baud. Dort nur ein USB-UART-Kabel anschließen: Verkehr auf RX während des Bootens kann U-Boot anhalten.</li>
-      <li>I2C4 (J4·21/22) hat auf dem Radxa schon Pull-ups. Für I2C5 nennt Radxa keine Pull-ups. Auf MAIN sind dafür R2 (SCL) und R3 (SDA) vorgesehen, 4,7 kΩ 0805 nach 3V3, standardmäßig nicht bestückt (DNP). Nur bestücken, wenn das Modul an J4 keine eigenen Pull-ups hat.</li>
+      <li>Strombudget an J5: 5V max. 1 A (vom MAIN-Buck). 3V3 kommt vom Radxa (J1·1 und J1·17) und reicht nur für kleine Lasten.</li>
+      <li>UART2 (J4·19/20) ist die Boot-Konsole mit 1 500 000 Baud. Dort nur ein USB-UART-Kabel anschließen: Verkehr auf RX während des Bootens kann U-Boot anhalten.</li>
+      <li>I2C4 (J4·9/10) hat auf dem Radxa schon Pull-ups. Für I2C5 nennt Radxa keine Pull-ups. Auf MAIN sind dafür R2 (SCL) und R3 (SDA) vorgesehen, 4,7 kΩ 0805 nach 3V3, standardmäßig nicht bestückt (DNP). Nur bestücken, wenn das Modul an J4 keine eigenen Pull-ups hat.</li>
       <li>Die UART3-Pins (J1·3/5) tragen auf dem Radxa I²C-Pull-ups. Für eine UART ist das unschädlich, da die Leitung im Ruhezustand ohnehin high ist.</li>
       <li>Unbeschaltet bleibt nur J1·26 (NC).</li>
       <li>Offen: PCB-Sync von MAIN und UI, Device Tree für LCD_RST, LCD_DC, Backlight-PWM (PWM9_M0), Encoder und CS1.</li>
@@ -183,46 +195,46 @@ a { color: var(--lcd); }
 (() => {
   // [pin, radxa name, linux gpio, function used, net, group, destination]
   const J1 = [
-    [1, "+3.3V", "", "3V3-Ausgang", "3V3", "p3", "J2·10, J4·3/4"],
-    [2, "+5.0V", "", "5V-Eingang", "5V", "pwr", "MAIN-Buck, J2·2, J4·1/2"],
-    [3, "GPIO1_A0", 32, "UART3_RX_M0", "UART3_RX", "uart", "J4·28"],
+    [1, "+3.3V", "", "3V3-Ausgang", "3V3", "p3", "J2·10, J5·3/4"],
+    [2, "+5.0V", "", "5V-Eingang", "5V", "pwr", "MAIN-Buck, J2·2, J5·1/2"],
+    [3, "GPIO1_A0", 32, "UART3_RX_M0", "UART3_RX", "uart", "J4·22"],
     [4, "+5.0V", "", "5V-Eingang", "5V", "pwr", "wie Pin 2"],
-    [5, "GPIO1_A1", 33, "UART3_TX_M0", "UART3_TX", "uart", "J4·27"],
+    [5, "GPIO1_A1", 33, "UART3_TX_M0", "UART3_TX", "uart", "J4·21"],
     [6, "GND", "", "", "GND", "gnd", ""],
-    [7, "GPIO3_C4", 116, "GPIO / PWM14_M0", "GPIO3_C4", "gpio", "J4·31"],
-    [8, "GPIO0_D1", 25, "UART2_TX_M0 · Debug", "UART2_TX", "uart", "J4·25"],
+    [7, "GPIO3_C4", 116, "GPIO / PWM14_M0", "GPIO3_C4", "gpio", "J4·27"],
+    [8, "GPIO0_D1", 25, "UART2_TX_M0 · Debug", "UART2_TX", "uart", "J4·20"],
     [9, "GND", "", "", "GND", "gnd", ""],
-    [10, "GPIO0_D0", 24, "UART2_RX_M0 · Debug", "UART2_RX", "uart", "J4·26"],
-    [11, "GPIO3_A1", 97, "GPIO", "GPIO3_A1", "gpio", "J4·32"],
-    [12, "GPIO3_A3", 99, "I2S3_SCLK_M0", "I2S_BCLK", "i2s", "J4·8"],
-    [13, "GPIO3_A2", 98, "I2S3_MCLK_M0", "I2S_MCLK", "i2s", "J4·7"],
+    [10, "GPIO0_D0", 24, "UART2_RX_M0 · Debug", "UART2_RX", "uart", "J4·19"],
+    [11, "GPIO3_A1", 97, "GPIO", "GPIO3_A1", "gpio", "J4·26"],
+    [12, "GPIO3_A3", 99, "I2S3_SCLK_M0", "I2S_BCLK", "i2s", "J4·5"],
+    [13, "GPIO3_A2", 98, "I2S3_MCLK_M0", "I2S_MCLK", "i2s", "J4·4"],
     [14, "GND", "", "", "GND", "gnd", ""],
     [15, "GPIO3_B0", 104, "GPIO", "LCD_RST", "lcd", "J2·5 → J102·5 RES"],
     [16, "GPIO3_B1", 105, "GPIO", "LCD_DC", "lcd", "J2·6 → J102·6 DC"],
     [17, "+3.3V", "", "3V3-Ausgang", "3V3", "p3", "wie Pin 1"],
     [18, "GPIO3_B2", 106, "PWM9_M0", "LCD_BL", "lcd", "J2·8 → J102·8 BLK"],
-    [19, "GPIO4_C3", 147, "SPI3_MOSI_M1", "SPI_MOSI", "lcd", "J2·4 → J102·4, J4·14"],
+    [19, "GPIO4_C3", 147, "SPI3_MOSI_M1", "SPI_MOSI", "lcd", "J2·4 → J102·4, J4·16"],
     [20, "GND", "", "", "GND", "gnd", ""],
-    [21, "GPIO4_C5", 149, "SPI3_MISO_M1", "SPI_MISO", "lcd", "J4·15"],
-    [22, "GPIO3_C1", 113, "GPIO als CS1", "SPI_CS1", "lcd", "J4·16"],
+    [21, "GPIO4_C5", 149, "SPI3_MISO_M1", "SPI_MISO", "lcd", "J4·14"],
+    [22, "GPIO3_C1", 113, "GPIO als CS1", "SPI_CS1", "lcd", "J4·15"],
     [23, "GPIO4_C2", 146, "SPI3_CLK_M1", "SPI_CLK", "lcd", "J2·3 → J102·3, J4·13"],
     [24, "GPIO4_C6", 150, "SPI3_CS0_M1", "LCD_CS", "lcd", "J2·7 → J102·7 CS"],
     [25, "GND", "", "", "GND", "gnd", ""],
     [26, "NC", "", "", "", "nc", ""],
-    [27, "GPIO4_B2", 138, "I2C4_SDA_M0", "I2C4_SDA", "i2c", "J4·22"],
-    [28, "GPIO4_B3", 139, "I2C4_SCL_M0", "I2C4_SCL", "i2c", "J4·21"],
-    [29, "GPIO3_B3", 107, "I2C5_SCL_M0", "I2C5_SCL", "i2c", "J4·19"],
+    [27, "GPIO4_B2", 138, "I2C4_SDA_M0", "I2C4_SDA", "i2c", "J4·10"],
+    [28, "GPIO4_B3", 139, "I2C4_SCL_M0", "I2C4_SCL", "i2c", "J4·9"],
+    [29, "GPIO3_B3", 107, "I2C5_SCL_M0", "I2C5_SCL", "i2c", "J4·8"],
     [30, "GND", "", "", "GND", "gnd", ""],
-    [31, "GPIO3_B4", 108, "I2C5_SDA_M0", "I2C5_SDA", "i2c", "J4·20"],
+    [31, "GPIO3_B4", 108, "I2C5_SDA_M0", "I2C5_SDA", "i2c", "J4·7"],
     [32, "GPIO3_C2", 114, "GPIO", "ENC_A", "enc", "J2·11 → ENC101 A"],
     [33, "GPIO3_C3", 115, "GPIO", "ENC_B", "enc", "J2·12 → ENC101 B"],
     [34, "GND", "", "", "GND", "gnd", ""],
-    [35, "GPIO3_A4", 100, "I2S3_LRCK_M0", "I2S_LRCK", "i2s", "J4·9"],
+    [35, "GPIO3_A4", 100, "I2S3_LRCK_M0", "I2S_LRCK", "i2s", "J4·3"],
     [36, "GPIO3_A7", 103, "GPIO", "ENC_SW", "enc", "J2·13 → ENC101 SW"],
-    [37, "GPIO1_A4", 36, "GPIO", "GPIO1_A4", "gpio", "J4·33"],
-    [38, "GPIO3_A6", 102, "I2S3_SDI_M0", "I2S_DIN", "i2s", "J4·11"],
+    [37, "GPIO1_A4", 36, "GPIO", "GPIO1_A4", "gpio", "J4·25"],
+    [38, "GPIO3_A6", 102, "I2S3_SDI_M0", "I2S_DIN", "i2s", "J4·2"],
     [39, "GND", "", "", "GND", "gnd", ""],
-    [40, "GPIO3_A5", 101, "I2S3_SDO_M0", "I2S_DOUT", "i2s", "J4·10"]
+    [40, "GPIO3_A5", 101, "I2S3_SDO_M0", "I2S_DOUT", "i2s", "J4·1"]
   ];
   const J2 = [
     ["Display J102", [[1, "GND", "", "J102·1 GND"], [2, "5V", "2/4", "J102·2 VDD"], [3, "SPI_CLK", "23", "J102·3 SCL"],
@@ -231,12 +243,12 @@ a { color: var(--lcd); }
     ["Encoder ENC101", [[9, "GND", "", "Masse"], [10, "3V3", "1/17", "Pull-ups R101–R103"], [11, "ENC_A", "32", "ENC101 A"],
       [12, "ENC_B", "33", "ENC101 B"], [13, "ENC_SW", "36", "ENC101 SW"], [14, "GND", "", "ENC101 C"]]]
   ];
-  const J4 = ["5V", "5V", "3V3", "3V3", "GND", "GND",
-              "I2S_MCLK", "I2S_BCLK", "I2S_LRCK", "I2S_DOUT", "I2S_DIN", "GND",
-              "SPI_CLK", "SPI_MOSI", "SPI_MISO", "SPI_CS1", "GND", "GND",
-              "I2C5_SCL", "I2C5_SDA", "I2C4_SCL", "I2C4_SDA", "GND", "GND",
-              "UART2_TX", "UART2_RX", "UART3_TX", "UART3_RX", "GND", "GND",
-              "GPIO3_C4", "GPIO3_A1", "GPIO1_A4", "GND"];
+  const J4 = ["I2S_DOUT", "I2S_DIN", "I2S_LRCK", "I2S_MCLK", "I2S_BCLK", "GND",
+              "I2C5_SDA", "I2C5_SCL", "I2C4_SCL", "I2C4_SDA", "GND", "GND",
+              "SPI_CLK", "SPI_MISO", "SPI_CS1", "SPI_MOSI", "GND", "GND",
+              "UART2_RX", "UART2_TX", "UART3_TX", "UART3_RX", "GND", "GND",
+              "GPIO1_A4", "GPIO3_A1", "GPIO3_C4", "GND"];
+  const J5 = ["5V", "5V", "3V3", "3V3", "GND", "GND"];
 
   const C = g => `var(--${g})`;
   const byNet = {};
@@ -269,28 +281,36 @@ a { color: var(--lcd); }
       `<tr><td class="mono">${pin}</td><td><span class="sig" style="--c:${C(groupOf(net))}">${net}</span></td>` +
       `<td class="mono muted">${j1}</td><td>${ui}</td></tr>`).join("")).join("");
 
-  let j4 = "";
-  for (let r = 0; r < J4.length / 2; r++) {
-    const a = J4[2 * r], b = J4[2 * r + 1];
-    const td = (pin, net) => `<td class="mono">${pin}</td><td><span class="sig" style="--c:${C(groupOf(net))}">${net}</span></td>` +
-                             `<td class="mono muted">${j1Of(net)}</td>`;
-    j4 += `<tr>${td(2 * r + 1, a)}${td(2 * r + 2, b)}</tr>`;
-  }
-  document.getElementById("j4").innerHTML = j4;
+  const pairTable = (pins, id) => {
+    let rows = "";
+    for (let r = 0; r < pins.length / 2; r++) {
+      const a = pins[2 * r], b = pins[2 * r + 1];
+      const td = (pin, net) => `<td class="mono">${pin}</td><td><span class="sig" style="--c:${C(groupOf(net))}">${net}</span></td>` +
+                               `<td class="mono muted">${j1Of(net)}</td>`;
+      rows += `<tr>${td(2 * r + 1, a)}${td(2 * r + 2, b)}</tr>`;
+    }
+    document.getElementById(id).innerHTML = rows;
+  };
+  pairTable(J4, "j4");
+  pairTable(J5, "j5");
 
   document.getElementById("j2-draw").innerHTML = J2.flatMap(([, rows]) => rows).map(([pin, net]) => {
     const c = C(groupOf(net));
     return `<span class="sq" style="--c:${c}">${pin}</span><span class="dsig" style="--c:${c}">${net}</span><span class="src">${src(net)}</span>`;
   }).join("");
 
-  let dual = "";
-  for (let r = 0; r < J4.length / 2; r++) {
-    const a = J4[2 * r], b = J4[2 * r + 1], ca = C(groupOf(a)), cb = C(groupOf(b));
-    dual += `<span class="dsig r" style="--c:${ca}">${a}</span><span class="src r">${src(a)}</span>` +
-            `<span class="sq" style="--c:${ca}">${2 * r + 1}</span><span class="sq" style="--c:${cb}">${2 * r + 2}</span>` +
-            `<span class="src">${src(b)}</span><span class="dsig" style="--c:${cb}">${b}</span>`;
-  }
-  document.getElementById("j4-draw").innerHTML = dual;
+  const dualDraw = (pins, id) => {
+    let dual = "";
+    for (let r = 0; r < pins.length / 2; r++) {
+      const a = pins[2 * r], b = pins[2 * r + 1], ca = C(groupOf(a)), cb = C(groupOf(b));
+      dual += `<span class="dsig r" style="--c:${ca}">${a}</span><span class="src r">${src(a)}</span>` +
+              `<span class="sq" style="--c:${ca}">${2 * r + 1}</span><span class="sq" style="--c:${cb}">${2 * r + 2}</span>` +
+              `<span class="src">${src(b)}</span><span class="dsig" style="--c:${cb}">${b}</span>`;
+    }
+    document.getElementById(id).innerHTML = dual;
+  };
+  dualDraw(J4, "j4-draw");
+  dualDraw(J5, "j5-draw");
 })();
 </script>
 </body>

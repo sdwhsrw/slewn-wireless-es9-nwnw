@@ -1,14 +1,18 @@
 """MAIN PCB, first layout pass: place the remaining parts, route J1 <-> J2 and the power paths.
 
-Not routed yet: J1 <-> J4 signals, I2C5 pull-ups R2/R3 (DNP), GND stitching.
+Not routed yet: J1 <-> J4 signals, I2C5 pull-ups R2/R3 (DNP).
+
+Placement (2026-11-22): J4 (2x14 signals) stands at the right board edge, J5 (2x3 power) stands parallel
+to it in the rear right corner; the rear strip x 119-130 stays free so the Radxa micro-HDMI stays usable. F1 sits next to J3,
+Q1 at the rear left next to U1; both protect wherever they sit in the 12 V path.
 
 Layer plan
   F.Cu  channel between J1 front row and J2: CLK, MOSI, RST, DC, 3V3 (J1.1 -> J2.10)
-        12 V: J3 -> F1 -> Q1 (right edge), 12 V into U1, 5 V U1 -> J2.2
+        12 V: J3 -> F1, Q1 -> U1 inputs, 5 V U1 -> J2.2, 3V3 J1.1 -> J5
   B.Cu  channel: CS, BL and the three encoder drops
         behind J1 (under the Radxa): encoder lanes (nested, so no crossings)
-        12 V lane y 70.6 from Q1 to U1
-        5 V: J2.2 -> strip under J2 (y 97.6) -> J1.4/J1.2; U1 -> lane y 60 -> J4.1/J4.2
+        fused 12 V: F1 -> past the coax cut-out -> lane y 70.6 -> Q1
+        5 V: J2.2 -> strip under J2 (y 97.6) -> J1.4/J1.2; U1 -> lane y 60 -> J5.1/J5.2
   The Radxa standoff keep-outs (6.4 mm) close both ends of J1, so the Radxa 5 V comes in from
   below J2 rather than around J1.
   J1 and J2 pin orders force crossings between the LCD and encoder groups; the encoder group
@@ -24,16 +28,17 @@ SIG, PWR12, PWR5, PWR5_WIDE, PWR33 = 0.2, 0.8, 1.0, 1.5, 0.2
 VIA_D, VIA_DRILL = 0.6, 0.3
 
 # Lanes in the 4 mm channel between the J1 front row (y 90.945) and J2 (y 95.07)
-L1, L2, L3, L4, L5 = 92.12, 92.53, 92.94, 93.35, 93.76
+L1, L2, L3, L4, L5 = 92.1325, 92.57, 93.0075, 93.445, 93.8825   # equal 0.24 mm gaps pad-lane-...-lane-pad
 # Behind J1 rear row (y 88.405), under the Radxa, B.Cu
-YA, YB, YSW = 87.15, 86.74, 86.33
+YA, YB, YSW = 86.6, 85.8, 85.0      # 0.8 mm apart, clear of the J1 rear pads
 GAP = 1.27            # half the J1 pitch: centre of the gap between two J1 pads
 Y_MID = 89.675        # between the J1 rows
 
 PLACE = {   # ref: (x, y, rotation)
-    "J4": (104.28, 58.31, 90),       # pin 1 left; odd row y 58.31, even row y 55.77
-    "Q1": (145.5, 83.0, 0),
-    "F1": (147.5, 90.0, 90),
+    "J4": (146.27, 56.0, 0),         # pin 1 at the rear; pins 146.27 / 148.81, y 56.0 ... 89.02
+    "J5": (139.79, 56.0, 0),         # standing like J4, just left of its first rows; pin 1 at the rear
+    "Q1": (84.0, 64.5, 0),
+    "F1": (140.5, 91.5, 180),        # pad 1 (rack side) towards J3
     "C4": (73.5, 59.5, 90),
     "C2": (67.0, 95.8, 0),
     "TP6": (72.0, 96.0, 0),
@@ -43,20 +48,43 @@ PLACE = {   # ref: (x, y, rotation)
 }
 
 
+def chamfer(pts, size, keep=()):
+    """Cut every right-angle corner to 45 degrees; the cut never takes more than half a leg.
+    Corners in `keep` (pad centres, vias, T-joints) stay where they are."""
+    out = [pts[0]]
+    for a, b, c in zip(pts, pts[1:], pts[2:]):
+        u = (b[0] - a[0], b[1] - a[1])
+        v = (c[0] - b[0], c[1] - b[1])
+        lu, lv = (u[0] ** 2 + u[1] ** 2) ** 0.5, (v[0] ** 2 + v[1] ** 2) ** 0.5
+        if lu == 0 or lv == 0 or abs(u[0] * v[0] + u[1] * v[1]) > 1e-6 * lu * lv or \
+                any(abs(b[0] - k[0]) < 1e-3 and abs(b[1] - k[1]) < 1e-3 for k in keep):
+            out.append(b)
+            continue
+        d = min(size, lu / 2, lv / 2)
+        out += [(round(b[0] - u[0] / lu * d, 4), round(b[1] - u[1] / lu * d, 4)),
+                (round(b[0] + v[0] / lv * d, 4), round(b[1] + v[1] / lv * d, 4))]
+    out.append(pts[-1])
+    return out
+
+
 class Router:
     def __init__(self, board):
         self.b = board
         self.fp = {f.GetReference(): f for f in board.Footprints()}
+        self.anchors = []            # points a route must keep passing through
 
     def pad(self, ref, num):
         p = [p for p in self.fp[ref].Pads() if p.GetNumber() == str(num)][0]
-        return pcbnew.ToMM(p.GetPosition().x), pcbnew.ToMM(p.GetPosition().y), p.GetNetname()
+        x, y = pcbnew.ToMM(p.GetPosition().x), pcbnew.ToMM(p.GetPosition().y)
+        self.anchors.append((x, y))
+        return x, y, p.GetNetname()
 
     def net(self, name):
         return self.b.FindNet(name)
 
     def path(self, net, layer, width, pts):
         n = self.net(net)
+        pts = chamfer([p for i, p in enumerate(pts) if i == 0 or p != pts[i - 1]], 2.0 * width + 0.2, self.anchors)
         for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
             if (x0, y0) == (x1, y1):
                 continue
@@ -90,6 +118,11 @@ def place(r):
         f = r.fp[ref]
         f.SetOrientationDegrees(rot)
         f.SetPosition(pcbnew.VECTOR2I_MM(x, y))
+    # the default spot above pin 1 is past the rear edge
+    for ref, x, y in (("J4", 143.9, 72.5), ("J5", 137.4, 58.5)):
+        text = r.fp[ref].Reference()
+        text.SetPosition(pcbnew.VECTOR2I_MM(x, y))
+        text.SetTextAngleDegrees(90)
 
 
 def route_j1_j2(r):
@@ -115,7 +148,8 @@ def route_j1_j2(r):
     front_down(16, L4, 6, "/LCD_DC", F)
     x1, y1 = j1(1)                                 # 3V3 from J1.1, right of J1
     tx, ty = j2(10)
-    r.path("/3V3", F, PWR33, [(x1, y1), (x1 + GAP, Y_MID), (x1 + GAP, L5), (tx, L5), (tx, ty)])
+    xg = x1 + GAP - 0.08              # centred between J1.2 and the standoff keep-out
+    r.path("/3V3", F, PWR33, [(x1, y1), (xg, y1 + (xg - x1)), (xg, L5), (tx, L5), (tx, ty)])
 
     # B.Cu channel: CS and BL
     front_down(24, L1, 7, "/LCD_CS", B)
@@ -136,42 +170,49 @@ def route_j1_j2(r):
 
 def route_power(r):
     F, B = pcbnew.F_Cu, pcbnew.B_Cu
-    # 12 V: J3.9/10 -> F1 -> Q1 (drain side 5-8) ; Q1 source 1-3 -> U1 inputs I3/I4
+    # 12 V: J3.9/10 -> F1 -> via -> B past the coax cut-out -> lane y 70.6 -> Q1 (drain 5-8) -> source 1-3 -> U1
     j3_9, j3_10 = r.pad("J3", 9)[:2], r.pad("J3", 10)[:2]
     f1_1, f1_2 = r.pad("F1", 1)[:2], r.pad("F1", 2)[:2]
     r.path("/RACK_12V", F, PWR12, [j3_9, j3_10, (j3_10[0], 93.2), f1_1])
-    q = {n: r.pad("Q1", n)[:2] for n in range(1, 9)}
-    r.path("/VIN_FUSED", F, PWR12, [f1_2, (f1_2[0], q[5][1] + 1.0), q[5]])
-    r.path("/VIN_FUSED", F, PWR12, [q[5], q[6], q[7], q[8]])
-    r.path("/12V_IN", F, PWR12, [q[1], q[2], q[3]])
-    vx, vy = q[1][0] - 1.6, q[1][1]
-    r.path("/12V_IN", F, PWR12, [q[1], (vx, vy)])
-    r.via("/12V_IN", vx, vy)
+    vx = f1_2[0] - 1.4
     y12 = 70.6                       # below the standoff keep-outs (bottom edge y 69.8)
-    r.path("/12V_IN", B, PWR12, [(vx, vy), (137.0, 78.4), (137.0, y12), (71.0, y12)])
-    r.via("/12V_IN", 71.0, y12)
+    q = {n: r.pad("Q1", n)[:2] for n in range(1, 9)}
+    xq = q[5][0] + 2.0
+    r.path("/VIN_FUSED", F, PWR12, [f1_2, (vx, f1_2[1])])
+    r.via("/VIN_FUSED", vx, f1_2[1])
+    r.path("/VIN_FUSED", B, PWR12, [(vx, f1_2[1]), (vx, 85.5), (137.0, 84.8), (137.0, y12), (xq, y12)])
+    r.via("/VIN_FUSED", xq, y12)
+    r.path("/VIN_FUSED", F, PWR12, [(xq, y12), (xq, q[5][1]), q[5], q[6], q[7], q[8]])
+    r.path("/12V_IN", F, PWR12, [q[3], q[2], q[1]])
     c4 = r.pad("C4", 1)[:2]
     i3, i4 = r.pad("U1", "I3")[:2], r.pad("U1", "I4")[:2]
-    r.path("/12V_IN", F, PWR12, [(71.0, y12), (71.0, i4[1]), i4, i3])
-    r.path("/12V_IN", F, PWR12, [c4, (71.0, c4[1])])
+    y_in = c4[1]
+    r.path("/12V_IN", F, PWR12, [q[1], (q[1][0] - (q[1][1] - y_in), y_in), c4, (71.0, y_in), (71.0, i4[1]), i4, i3])
 
     # 5 V: U1 O4-O6 -> J2.2 (F) -> B strip under J2 -> J1.4/J1.2
     o4, o5, o6 = (r.pad("U1", n)[:2] for n in ("O4", "O5", "O6"))
     y5 = 93.4                        # below the standoff keep-out (bottom edge y 92.7)
     j2_2 = r.pad("J2", 2)[:2]
     r.path("/5V", F, PWR5, [o4, o5, o6, (o6[0], y5), (j2_2[0], y5), j2_2])
-    for ref in ("C2", "TP6"):
-        x, y = r.pad(ref, 1)[:2]
-        r.path("/5V", F, PWR5, [(x, y), (x, y5), (o6[0], y5)])
+    c2 = r.pad("C2", 1)[:2]          # left of the trunk: joins it past its chamfered corner
+    r.path("/5V", F, PWR5, [c2, (c2[0], y5), (o6[0] + 2.8, y5)])
+    tp6 = r.pad("TP6", 1)[:2]        # under the trunk: a stub up to it
+    r.path("/5V", F, PWR5, [tp6, (tp6[0], y5)])
     j1_2, j1_4 = r.pad("J1", 2)[:2], r.pad("J1", 4)[:2]
     ys = 97.6                        # strip between J2 pads and the board edge
     r.path("/5V", B, PWR5_WIDE, [j2_2, (j2_2[0], ys), (j1_4[0], ys)])
     r.path("/5V", B, PWR5, [(j1_4[0], ys), j1_4, j1_2])
-    # U1 -> J4.1/J4.2: B under U1 (the module sits on F), lane y 60
-    xv = 69.4
+    # U1 -> J5.1/J5.2: B under U1 (the module sits on F), lane y 60
+    xv = 71.0                        # on the straight part of the trunk
     r.via("/5V", xv, y5)
-    j4_1, j4_2 = r.pad("J4", 1)[:2], r.pad("J4", 2)[:2]
-    r.path("/5V", B, PWR5, [(xv, y5), (xv, 60.0), (j4_1[0], 60.0), j4_1, j4_2])
+    j5 = {n: r.pad("J5", n)[:2] for n in range(1, 5)}
+    x5 = j5[1][0] - 1.6              # left of the J5 pin column
+    r.path("/5V", B, PWR5, [(xv, y5), (xv, 60.0), (x5, 60.0), (x5, j5[1][1]), j5[1], j5[2]])
+
+    # 3V3 for J5 from J1.1 (rear row), up on F past the right end of J1; J1.1 also feeds J2.10
+    j1_1 = r.pad("J1", 1)[:2]
+    x3 = j5[3][0] - 1.9
+    r.path("/3V3", F, 0.3, [j1_1, (j1_1[0], 63.0), (x3, 63.0), (x3, j5[3][1]), j5[3], j5[4]])
 
 
 def _seg_dist(px, py, x0, y0, x1, y1):
